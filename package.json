@@ -1,0 +1,24 @@
+{
+  "name": "falagico",
+  "version": "1.0.0",
+  "description": "FaLaGiCo, the Fantasy Languages Gibberish Converter translates any text to a gibberish that resembles the selected fantasy language.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vpeter1119/falagico.git"
+  },
+  "keywords": [
+    "fantasy",
+    "rpg",
+    "conlang"
+  ],
+  "author": "Peter Vertesi",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/vpeter1119/falagico/issues"
+  },
+  "homepage": "https://github.com/vpeter1119/falagico#readme"
+}
