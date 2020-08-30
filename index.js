@@ -27,7 +27,7 @@ const elvishOptions = {
         combinations: ["CV", "SV", "CAV", "SAV", "SVF", "SAVF", "CAVF", "CVF", "VF", "SDF", "SADF", "CADF", "CDF", "DF"],
     },
     names: {
-        firstNames: ["SVFV","SVAV","SVFD","CVFV","CVAV","CVFD","SVFVFV","SVAVFV","SVFDFV","CVFVFV","CVAVFV","CVFDFV","SVFVF","SVAVF","SVFDF","CVFVF","CVAVF","CVFDF"]
+        firstNames: ["SVFV","SVAV","CVFV","CVAV","SVFVFV","SVAVFV","CVFVFV","CVAVFV","SVFVF","SVAVF","CVFVF","CVAVF"]
     }
 }
 
@@ -64,7 +64,7 @@ function RandomSyllable(syllableStructure = "CVC", langOptions = defaultOptions,
 }
 
 // Get random word
-function RandomWord(length, options, callback) {
+function RandomWord(length = 2, options = defaultOptions, callback) {
     var word = "";
     var counter = 0;
     new Promise((resolve, reject) => {
@@ -81,9 +81,10 @@ function RandomWord(length, options, callback) {
 };
 
 // Generate name
-function RandomName(langOptions, callback) {
-    nameStructure = PickRandom(langOptions.names.firstNames);
-    RandomSyllable(nameStructure, langOptions, (name) => {
+function RandomName(langOptions = defaultOptions, callback) {
+    var options = CheckEmpty(langOptions) ? defaultOptions : langOptions;
+    nameStructure = PickRandom(options.names.firstNames);
+    RandomSyllable(nameStructure, options, (name) => {
         callback(_.capitalize(name));
     })
 }
