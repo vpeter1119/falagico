@@ -1,6 +1,6 @@
 {
   "name": "falagico",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "FaLaGiCo, the Fantasy Languages Gibberish Converter translates any text to a gibberish that resembles the selected fantasy language.",
   "main": "src/index.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "conlang"
   ],
   "author": "Peter Vertesi",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/vpeter1119/falagico/issues"
   },
