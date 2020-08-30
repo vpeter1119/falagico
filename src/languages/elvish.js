@@ -7,6 +7,33 @@ const options = {
     id: "ELV",
     desc: "Language of the Elves of Kherret.",
     phonology: {
+        inventory: {
+            vowels: {
+                low: ["a", "o", "u"], //aka open
+                mid: [],
+                high: ["e", "i","y"] //aka closed
+            },
+            consonants: {
+                glides: ["bw","tw","dw","dhw","cw","gw"],
+                liquids: ["bl", "br", "pr", "tr", "dl", "dr", "cl", "cr", "gl", "gr"],
+                nasals: ["m", "n", "nn"],
+                fricatives: ["f", "v", "th", "s", "ch"],
+                affricates: ["b", "p", "t", "d", "dh", "c", "g"]
+            }
+        },
+        phonotactics: {
+            onsets: [[], ["consonants", "fricatives"], ["consonants", "fricatives"], ["consonants", "fricatives"], ["consonants", "fricatives"], ["consonants", "affricates"], ["consonants", "affricates"], ["consonants", "affricates"], ["consonants", "liquids"], ["consonants", "liquids"], ["consonants", "glides"]],
+            nuclei: [["vowels", "low"], ["vowels", "high"]],
+            codas: [[], ["consonants", "nasals"]]
+        },
+        constraints: {
+            noLiquidAfterCoda: true,
+            noGlideafterCoda: true,
+            noDoubleNucleus: true,
+        },
+        other: {
+            maxWordLength: 3
+        },
         inventorySimple: {
             A: ["l", "w"],
             C: ["b", "c", "ch", "d", "dh", "f", "g", "l", "m", "n", "p", "r", "s", "t", "th", "v"],

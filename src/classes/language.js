@@ -25,7 +25,7 @@ class Language {
 
     // Advanced syllable generation
     Syllable() {
-        if (!this.phonology.inventoryAdv) {
+        if (!this.phonology.inventory) {
             return;
         }
         var syllable = {
@@ -43,22 +43,22 @@ class Language {
             }
         }
         // Generate nucleus
-        var nucleusType = random.pick(this.phonology.phonotacticsAdv.nuclei);
-        var nucleus = random.pick(this.phonology.inventoryAdv[nucleusType[0]][nucleusType[1]]);
+        var nucleusType = random.pick(this.phonology.phonotactics.nuclei);
+        var nucleus = random.pick(this.phonology.inventory[nucleusType[0]][nucleusType[1]]);
         syllable.nucleus = {
             type: nucleusType[1] || '',
             text: nucleus
         };
         // Generate onset
-        var onsetType = random.pick(this.phonology.phonotacticsAdv.onsets);
-        var onset = onsetType.length ? random.pick(this.phonology.inventoryAdv[onsetType[0]][onsetType[1]]) : "";
+        var onsetType = random.pick(this.phonology.phonotactics.onsets);
+        var onset = onsetType.length ? random.pick(this.phonology.inventory[onsetType[0]][onsetType[1]]) : "";
         syllable.onset = {
             type: onsetType[1] || '',
             text: onset
         };
         // Generate coda
-        var codaType = random.pick(this.phonology.phonotacticsAdv.codas);
-        var coda = codaType.length ? random.pick(this.phonology.inventoryAdv[codaType[0]][codaType[1]]) : "";
+        var codaType = random.pick(this.phonology.phonotactics.codas);
+        var coda = codaType.length ? random.pick(this.phonology.inventory[codaType[0]][codaType[1]]) : "";
         syllable.coda = {
             type: codaType[1] || '',
             text: coda
@@ -67,8 +67,8 @@ class Language {
     }
 
     // Advanced word generation
-    Word(length = random.int(2) + 1) {
-        if (!this.phonology.inventoryAdv) {
+    Word(length = random.int(this.phonology.other.maxWordLength)+1) {
+        if (!this.phonology.inventory) {
             return;
         }
         /*
@@ -88,6 +88,9 @@ class Language {
         if (this.phonology.constraints.noLiquidAfterCoda) {
             word = this.CheckLiquid(word);
         }
+        if (this.phonology.constraints.noGlideAfterCoda) {
+            word = this.CheckGlide(word);
+        }
         if (this.phonology.constraints.noDoubleNucleus) {
             word = this.CheckDoubleNucleus(word);
         }
@@ -97,6 +100,45 @@ class Language {
             wordProcessed = wordProcessed.concat(sylProcessed);
         })
         return wordProcessed;
+    }
+
+
+    // Generate sentence
+    Sentence(length = random.int(10)+1) {
+        var words = [];
+        for (var i = 0; i < length; i++) {
+            var commaChance = 10; // in %
+            var wordToAdd = (i == 0) ? _.capitalize(this.Word()) : this.Word();
+            if (random.int(100) <= commaChance && i < length-1) {
+                wordToAdd = wordToAdd.concat(",");
+            }
+            words = words.concat(wordToAdd);
+        }
+        var mark = random.pick([".","?","!"]);
+        var sentence = `${words.join(' ')}${mark}`;
+        return sentence;
+    }
+
+    // Generate text
+    Text(length = random.int(10)+1) {
+        var sentences = [];
+        for (var i = 0; i < length; i++) {
+            var sentenceToAdd = this.Sentence();
+            sentences = sentences.concat(sentenceToAdd);
+        }
+        var text = sentences.join(' ');
+        return text;
+    }
+
+    // Convert string into gibberish
+    Convert(string) {
+        var sentences = string.split(/[\.?!]+/);
+        var sentencesFiltered = sentences.filter(sentence => sentence.length > 0);
+        var sentencesAndWords = [];
+        sentencesFiltered.forEach(sentence => sentencesAndWords.push(sentence.split(' ').filter(word => word.length > 0)));
+        var convertedSentences = [];
+        sentencesAndWords.forEach(sentence => convertedSentences.push(this.Sentence(sentence.length)));
+        return convertedSentences.join(' ');
     }
 
     // Simple syllable generation
@@ -143,6 +185,23 @@ class Language {
                 while (true) {
                     var syl = this.Syllable();
                     if (syl.onset.type != 'liquids') {
+                        word[i + 1] = syl;
+                        break;
+                    }
+                }
+            }
+        }
+        return word;
+    }
+    // Check: noGlideAfterCoda
+    CheckGlide(word) {
+        // Check if non-empty coda is followed by liquid onset
+        for (var i = 0; i < word.length; i++) {
+            if (i != word.length - 1 && word[i].coda.type != '' && word[i + 1].onset.type == 'glides') {
+                // Generate a syllable with non-liquid onset
+                while (true) {
+                    var syl = this.Syllable();
+                    if (syl.onset.type != 'glides') {
                         word[i + 1] = syl;
                         break;
                     }

@@ -7,7 +7,7 @@ const options = {
     id: "TEST",
     desc: "This language is for testing only.",
     phonology: {
-        inventoryAdv: {
+        inventory: {
             vowels: {
                 low: ["a", "o", "u"], //aka open
                 mid: [],
@@ -21,7 +21,7 @@ const options = {
                 affricates: ["b", "p", "t", "d", "k", "g"]
             }
         },
-        phonotacticsAdv: {
+        phonotactics: {
             onsets: [[], ["consonants", "fricatives"], ["consonants", "affricates"], ["consonants", "liquids"]],
             nuclei: [["vowels", "low"], ["vowels", "high"]],
             codas: [[], ["consonants", "nasals"]]
@@ -29,6 +29,9 @@ const options = {
         constraints: {
             noLiquidAfterCoda: true,
             noDoubleNucleus: true,
+        },
+        other: {
+            maxWordLength: 5,
         },
         inventorySimple: {
             C: ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z"],
