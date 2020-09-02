@@ -28,4 +28,4 @@ function PickRandom(array) {
 module.exports = {
     int: GetRandomInt,
     pick: PickRandom
-}
+};

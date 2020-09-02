@@ -71,7 +71,7 @@ class Language {
                 type: '',
                 text: ''
             }
-        }
+        };
         // Generate nucleus
         var nucleusType = random.pick(this.phonology.phonotactics.nuclei);
         var nucleus = random.pick(this.phonology.inventory[nucleusType[0]][nucleusType[1]]);
@@ -81,14 +81,14 @@ class Language {
         };
         // Generate onset
         var onsetType = random.pick(this.phonology.phonotactics.onsets);
-        var onset = onsetType.length ? random.pick(this.phonology.inventory[onsetType[0]][onsetType[1]]) : "";
+        var onset = onsetType.length ? random.pick(this.phonology.inventory[onsetType[0]][onsetType[1]]) : '';
         syllable.onset = {
             type: onsetType[1] || '',
             text: onset
         };
         // Generate coda
         var codaType = random.pick(this.phonology.phonotactics.codas);
-        var coda = codaType.length ? random.pick(this.phonology.inventory[codaType[0]][codaType[1]]) : "";
+        var coda = codaType.length ? random.pick(this.phonology.inventory[codaType[0]][codaType[1]]) : '';
         syllable.coda = {
             type: codaType[1] || '',
             text: coda
@@ -131,7 +131,7 @@ class Language {
         word.forEach(syl => {
             var sylProcessed = (syl.onset.text + syl.nucleus.text + syl.coda.text);
             wordProcessed = wordProcessed.concat(sylProcessed);
-        })
+        });
         return wordProcessed;
     }
     
@@ -147,11 +147,11 @@ class Language {
             var commaChance = 10; // in %
             var wordToAdd = (i == 0) ? _.capitalize(this.Word()) : this.Word();
             if (random.int(100) <= commaChance && i < length-1) {
-                wordToAdd = wordToAdd.concat(",");
+                wordToAdd = wordToAdd.concat(',');
             }
             words = words.concat(wordToAdd);
         }
-        var mark = random.pick([".","?","!"]);
+        var mark = random.pick(['.','?','!']);
         var sentence = `${words.join(' ')}${mark}`;
         return sentence;
     }
@@ -207,7 +207,7 @@ class Language {
     }
     // Simple word generation
     WordSimple(length = random.int(2) + 1) {
-        var word = "";
+        var word = '';
         for (var i = 0; i < length; i++) {
             word = word.concat(this.SyllableSimple());
         }
@@ -225,8 +225,8 @@ class Language {
     FullName(type = random.pick(Object.keys(this.names.firstNames))) {
         var firstName = this.FirstName(type);
         var lastName = _.capitalize(this.WordSimple());
-        var fullName = firstName + " " + lastName;
-        return fullName + " (" + type + ")";
+        var fullName = `${firstName  } ${  lastName}`;
+        return `${fullName  } (${  type  })`;
     }
 
     // Check: noLiquidAfterCoda

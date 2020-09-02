@@ -1,18 +1,18 @@
 // Require modules
-const _ = require("lodash");
-const Language = require("./classes/language");
+const _ = require('lodash');
+const Language = require('./classes/language');
 
 // Import default languages
-const defaultLangs = require("./languages/defaults");
+const defaultLangs = require('./languages/defaults');
 
 // Messages
 const messages = {
-    hello: `Hello world!`,
+    hello: 'Hello world!',
     errors: {
         syntaxError: 'ERROR: Syntax error.',
         langNotFound: 'ERROR: Language not found.'
     }
-}
+};
 
 /* FUNCTIONS */
 
@@ -34,6 +34,6 @@ module.exports = {
     messages,
     Language,
     languages: defaultLangs
-}
+};
 
 /* TEST AREA */

@@ -7,7 +7,7 @@
     "start": "node src/index.js",
     "test": "jest --verbose",
     "lint:test": "eslint src",
-    "lint:fix": "eslint src/index.js --fix",
+    "lint:fix": "eslint src --fix",
     "generate-docs": "jsdoc src -d docs -r"
   },
   "repository": {
