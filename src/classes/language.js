@@ -102,7 +102,7 @@ class Language {
      * @param {number} length Word length in syllables. Default: random integer between 1 and <langOptions.phonology.other.maxWordLength>.
      * @returns {string} Random word.
      */
-    Word(length = random.int(this.phonology.other.maxWordLength)+1) {
+    Word(length = random.int(this.phonology.other.maxWordLength-1)+1) {
         if (!this.phonology.inventory) {
             return;
         }
@@ -141,7 +141,7 @@ class Language {
      * @param {number} length The sentence length in words. Default: random integer between 1 and 10.
      * @returns {string} Random sentence.
      */
-    Sentence(length = random.int(10)+1) {
+    Sentence(length = random.int(9)+1) {
         var words = [];
         for (var i = 0; i < length; i++) {
             var commaChance = 10; // in %

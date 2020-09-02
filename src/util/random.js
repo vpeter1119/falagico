@@ -8,7 +8,7 @@
 /**
  * Generates random integer.
  * @param {number} max Maximum value.
- * @returns {number} Random integer between 1 and {@linkcode max}.
+ * @returns {number} Random integer between 0 and {@linkcode max}.
  */
 function GetRandomInt(max) {
     const int = Math.floor(Math.random() * Math.floor(max));
