@@ -1,7 +1,10 @@
 /**
- * @module language
+ * This module uses the following depedencies: [lodash]{@link https://github.com/lodash/lodash} and {@link RandomModule}.
+ * @module LanguageModule
+ * @author Peter Vertesi <info@petervertesi.com>
+ * @copyright Peter Vertesi, 2020
  * @requires lodash
- * @requires random
+ * @requires RandomModule
  */
 
 // Modules
