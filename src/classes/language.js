@@ -1,14 +1,41 @@
+/**
+ * @module language
+ * @requires lodash
+ * @requires random
+ */
+
 // Modules
 const _ = require('lodash');
 const random = require('../util/random.js');
 
+/**
+ * Creates a new Language.
+ * @class
+ */
 class Language {
 
-    // Constructor
+    /**
+     * @constructs Language
+     * @param {Object} langOptions Language options object.
+     * @param {string} langOptions.name Full name of the language.
+     * @param {string} langOptions.id Short language ID.
+     * @param {string} langOptions.desc Language description.
+     * @param {Object} langOptions.phonology Phonological ruleset.
+     * @param {Object} langOptions.phonology.inventory Phonological inventory in format {<type>:{<subtype>:["<option1>","<option2>"...]...}...}.
+     * @param {Object} langOptions.phonology.phonotactics Rules of syllable construction.
+     * @param {string[]} langOptions.phonology.phonotactics.onsets Possible values for syllable onset.
+     * @param {string[]} langOptions.phonology.phonotactics.nuclei Possible values for syllable nucleus.
+     * @param {string[]} langOptions.phonology.phonotactics.codas Possible values for syllable coda.
+     * @param {Object} langOptions.phonology.constraints Constraints to apply during syllable creation.
+     * @param {boolean} langOptions.phonology.constraints.noLiquidAfterCoda Re-generate syllables with liquid onset if previous syllable has non-empty coda.
+     * @param {boolean} langOptions.phonology.constraints.noLiquidAfterCoda Re-generate syllables with glide onset if previous syllable has non-empty coda.
+     * @param {boolean} langOptions.phonology.constraints.noDoubleNucleus Re-generate syllables with empty onset if previous syllable has empty coda.
+     * @param {number} langOptions.other Miscellaneous settings.
+     * @param {number} langOptions.other.maxWordLength Maximum length of generated words.
+     */
     constructor(
         langOptions
     ) {
-        //this.options = langOptions;
         this.phonology = langOptions.phonology;
         this.names = langOptions.names;
         this.name = langOptions.name;
@@ -20,10 +47,10 @@ class Language {
 
     // Setters
 
-    /* METHODS */
-
-
-    // Advanced syllable generation
+    /**
+     * Generates a syllable based on the phonological inventory and rules.
+     * @memberof Language
+     */
     Syllable() {
         if (!this.phonology.inventory) {
             return;
@@ -66,7 +93,12 @@ class Language {
         return syllable;
     }
 
-    // Advanced word generation
+    /**
+     * Generates a random word based on the phonological inventory and rules.
+     * @memberof Language
+     * @param {number} length Word length in syllables. Default: random integer between 1 and <langOptions.phonology.other.maxWordLength>.
+     * @returns {string} Random word.
+     */
     Word(length = random.int(this.phonology.other.maxWordLength)+1) {
         if (!this.phonology.inventory) {
             return;
@@ -81,8 +113,6 @@ class Language {
         for (var i = 0; i < length; i++) {
             var syl = this.Syllable();
             word = word.concat(syl);
-            //var sylProcessed = (syl.onset.text + syl.nucleus.text + syl.coda.text);
-            //wordProcessed = wordProcessed.concat(sylProcessed);
         }
         // Check word for constraints
         if (this.phonology.constraints.noLiquidAfterCoda) {
@@ -101,9 +131,13 @@ class Language {
         })
         return wordProcessed;
     }
-
-
-    // Generate sentence
+    
+    /**
+     * Generate random sentence based on phonological inventory and rules.
+     * @memberof Language
+     * @param {number} length The sentence length in words. Default: random integer between 1 and 10.
+     * @returns {string} Random sentence.
+     */
     Sentence(length = random.int(10)+1) {
         var words = [];
         for (var i = 0; i < length; i++) {
@@ -119,7 +153,12 @@ class Language {
         return sentence;
     }
 
-    // Generate text
+    /**
+     * Generate random text based on phonological inventory and rules.
+     * @memberof Language
+     * @param {number} length Length of Text in sentences. Default: random integer between 1 and 10.
+     * @returns {string} Random text.
+     */
     Text(length = random.int(10)+1) {
         var sentences = [];
         for (var i = 0; i < length; i++) {
@@ -131,6 +170,12 @@ class Language {
     }
 
     // Convert string into gibberish
+    /**
+     * Convert string into a random text with the same number of sentences and words.
+     * @memberof Language
+     * @param {string} string
+     * @returns {string} Converted text.
+     */
     Convert(string) {
         var sentences = string.split(/[\.?!]+/);
         var sentencesFiltered = sentences.filter(sentence => sentence.length > 0);
@@ -141,7 +186,12 @@ class Language {
         return convertedSentences.join(' ');
     }
 
-    // Simple syllable generation
+    /**
+     * Generate random syllable based on simple phonological rules.
+     * @memberof Language
+     * @param {string} pattern Syllable pattern, e.g. "CVC". Default: random pattern from langOptions.
+     * @returns {string} Random syllable.
+     */
     SyllableSimple(pattern = random.pick(this.phonology.phonotacticsSimple)) {
         var syllable = [];
         var sylElList = pattern.split('');
@@ -230,7 +280,5 @@ class Language {
     }
 
 }
-
-/* EXPORT */
 
 module.exports = Language;
