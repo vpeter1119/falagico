@@ -23,5 +23,8 @@
   "homepage": "https://github.com/vpeter1119/falagico#readme",
   "dependencies": {
     "lodash": "^4.17.20"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.6.5"
   }
 }
