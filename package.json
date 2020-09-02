@@ -26,6 +26,7 @@
     "lodash": "^4.17.20"
   },
   "devDependencies": {
+    "jest": "^26.4.2",
     "jsdoc": "^3.6.5"
   }
 }
