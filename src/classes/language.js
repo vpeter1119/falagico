@@ -1,14 +1,44 @@
+/**
+ * This module uses the following depedencies: [lodash]{@link https://github.com/lodash/lodash} and {@link RandomModule}.
+ * @module LanguageModule
+ * @author Peter Vertesi <info@petervertesi.com>
+ * @copyright Peter Vertesi, 2020
+ * @requires lodash
+ * @requires RandomModule
+ */
+
 // Modules
 const _ = require('lodash');
 const random = require('../util/random.js');
 
+/**
+ * Creates a new Language.
+ * @class
+ */
 class Language {
 
-    // Constructor
+    /**
+     * @constructs Language
+     * @param {Object} langOptions Language options object.
+     * @param {string} langOptions.name Full name of the language.
+     * @param {string} langOptions.id Short language ID.
+     * @param {string} langOptions.desc Language description.
+     * @param {Object} langOptions.phonology Phonological ruleset.
+     * @param {Object} langOptions.phonology.inventory Phonological inventory in format {<type>:{<subtype>:["<option1>","<option2>"...]...}...}.
+     * @param {Object} langOptions.phonology.phonotactics Rules of syllable construction.
+     * @param {string[]} langOptions.phonology.phonotactics.onsets Possible values for syllable onset.
+     * @param {string[]} langOptions.phonology.phonotactics.nuclei Possible values for syllable nucleus.
+     * @param {string[]} langOptions.phonology.phonotactics.codas Possible values for syllable coda.
+     * @param {Object} langOptions.phonology.constraints Constraints to apply during syllable creation.
+     * @param {boolean} langOptions.phonology.constraints.noLiquidAfterCoda Re-generate syllables with liquid onset if previous syllable has non-empty coda.
+     * @param {boolean} langOptions.phonology.constraints.noLiquidAfterCoda Re-generate syllables with glide onset if previous syllable has non-empty coda.
+     * @param {boolean} langOptions.phonology.constraints.noDoubleNucleus Re-generate syllables with empty onset if previous syllable has empty coda.
+     * @param {number} langOptions.other Miscellaneous settings.
+     * @param {number} langOptions.other.maxWordLength Maximum length of generated words.
+     */
     constructor(
         langOptions
     ) {
-        //this.options = langOptions;
         this.phonology = langOptions.phonology;
         this.names = langOptions.names;
         this.name = langOptions.name;
@@ -20,10 +50,10 @@ class Language {
 
     // Setters
 
-    /* METHODS */
-
-
-    // Advanced syllable generation
+    /**
+     * Generates a syllable based on the phonological inventory and rules.
+     * @memberof Language
+     */
     Syllable() {
         if (!this.phonology.inventory) {
             return;
@@ -41,7 +71,7 @@ class Language {
                 type: '',
                 text: ''
             }
-        }
+        };
         // Generate nucleus
         var nucleusType = random.pick(this.phonology.phonotactics.nuclei);
         var nucleus = random.pick(this.phonology.inventory[nucleusType[0]][nucleusType[1]]);
@@ -51,14 +81,14 @@ class Language {
         };
         // Generate onset
         var onsetType = random.pick(this.phonology.phonotactics.onsets);
-        var onset = onsetType.length ? random.pick(this.phonology.inventory[onsetType[0]][onsetType[1]]) : "";
+        var onset = onsetType.length ? random.pick(this.phonology.inventory[onsetType[0]][onsetType[1]]) : '';
         syllable.onset = {
             type: onsetType[1] || '',
             text: onset
         };
         // Generate coda
         var codaType = random.pick(this.phonology.phonotactics.codas);
-        var coda = codaType.length ? random.pick(this.phonology.inventory[codaType[0]][codaType[1]]) : "";
+        var coda = codaType.length ? random.pick(this.phonology.inventory[codaType[0]][codaType[1]]) : '';
         syllable.coda = {
             type: codaType[1] || '',
             text: coda
@@ -66,8 +96,13 @@ class Language {
         return syllable;
     }
 
-    // Advanced word generation
-    Word(length = random.int(this.phonology.other.maxWordLength)+1) {
+    /**
+     * Generates a random word based on the phonological inventory and rules.
+     * @memberof Language
+     * @param {number} length Word length in syllables. Default: random integer between 1 and <langOptions.phonology.other.maxWordLength>.
+     * @returns {string} Random word.
+     */
+    Word(length = random.int(this.phonology.other.maxWordLength-1)+1) {
         if (!this.phonology.inventory) {
             return;
         }
@@ -81,8 +116,6 @@ class Language {
         for (var i = 0; i < length; i++) {
             var syl = this.Syllable();
             word = word.concat(syl);
-            //var sylProcessed = (syl.onset.text + syl.nucleus.text + syl.coda.text);
-            //wordProcessed = wordProcessed.concat(sylProcessed);
         }
         // Check word for constraints
         if (this.phonology.constraints.noLiquidAfterCoda) {
@@ -98,28 +131,37 @@ class Language {
         word.forEach(syl => {
             var sylProcessed = (syl.onset.text + syl.nucleus.text + syl.coda.text);
             wordProcessed = wordProcessed.concat(sylProcessed);
-        })
+        });
         return wordProcessed;
     }
-
-
-    // Generate sentence
-    Sentence(length = random.int(10)+1) {
+    
+    /**
+     * Generate random sentence based on phonological inventory and rules.
+     * @memberof Language
+     * @param {number} length The sentence length in words. Default: random integer between 1 and 10.
+     * @returns {string} Random sentence.
+     */
+    Sentence(length = random.int(9)+1) {
         var words = [];
         for (var i = 0; i < length; i++) {
             var commaChance = 10; // in %
             var wordToAdd = (i == 0) ? _.capitalize(this.Word()) : this.Word();
             if (random.int(100) <= commaChance && i < length-1) {
-                wordToAdd = wordToAdd.concat(",");
+                wordToAdd = wordToAdd.concat(',');
             }
             words = words.concat(wordToAdd);
         }
-        var mark = random.pick([".","?","!"]);
+        var mark = random.pick(['.','?','!']);
         var sentence = `${words.join(' ')}${mark}`;
         return sentence;
     }
 
-    // Generate text
+    /**
+     * Generate random text based on phonological inventory and rules.
+     * @memberof Language
+     * @param {number} length Length of Text in sentences. Default: random integer between 1 and 10.
+     * @returns {string} Random text.
+     */
     Text(length = random.int(10)+1) {
         var sentences = [];
         for (var i = 0; i < length; i++) {
@@ -131,6 +173,12 @@ class Language {
     }
 
     // Convert string into gibberish
+    /**
+     * Convert string into a random text with the same number of sentences and words.
+     * @memberof Language
+     * @param {string} string
+     * @returns {string} Converted text.
+     */
     Convert(string) {
         var sentences = string.split(/[\.?!]+/);
         var sentencesFiltered = sentences.filter(sentence => sentence.length > 0);
@@ -141,7 +189,12 @@ class Language {
         return convertedSentences.join(' ');
     }
 
-    // Simple syllable generation
+    /**
+     * Generate random syllable based on simple phonological rules.
+     * @memberof Language
+     * @param {string} pattern Syllable pattern, e.g. "CVC". Default: random pattern from langOptions.
+     * @returns {string} Random syllable.
+     */
     SyllableSimple(pattern = random.pick(this.phonology.phonotacticsSimple)) {
         var syllable = [];
         var sylElList = pattern.split('');
@@ -154,7 +207,7 @@ class Language {
     }
     // Simple word generation
     WordSimple(length = random.int(2) + 1) {
-        var word = "";
+        var word = '';
         for (var i = 0; i < length; i++) {
             word = word.concat(this.SyllableSimple());
         }
@@ -172,8 +225,8 @@ class Language {
     FullName(type = random.pick(Object.keys(this.names.firstNames))) {
         var firstName = this.FirstName(type);
         var lastName = _.capitalize(this.WordSimple());
-        var fullName = firstName + " " + lastName;
-        return fullName + " (" + type + ")";
+        var fullName = `${firstName  } ${  lastName}`;
+        return `${fullName  } (${  type  })`;
     }
 
     // Check: noLiquidAfterCoda
@@ -212,7 +265,7 @@ class Language {
     }
 
     // Check: noDoubleNucleus
-    CheckDoubleNucleus(word, callback) {
+    CheckDoubleNucleus(word) {
         // Check if empty coda is followed by empty onset
         for (var i = 0; i < word.length; i++) {
             if (i != word.length - 1 && word[i].coda.type == '' && word[i + 1].onset.type == '') {
@@ -230,7 +283,5 @@ class Language {
     }
 
 }
-
-/* EXPORT */
 
 module.exports = Language;

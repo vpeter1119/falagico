@@ -4,7 +4,11 @@
   "description": "FaLaGiCo, the Fantasy Languages Gibberish Converter translates any text to a gibberish that resembles the selected fantasy language.",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "test": "jest --verbose",
+    "lint:test": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "generate-docs": "jsdoc src -d docs -r"
   },
   "repository": {
     "type": "git",
@@ -23,5 +27,10 @@
   "homepage": "https://github.com/vpeter1119/falagico#readme",
   "dependencies": {
     "lodash": "^4.17.20"
+  },
+  "devDependencies": {
+    "eslint": "^7.8.1",
+    "jest": "^26.4.2",
+    "jsdoc": "^3.6.5"
   }
 }
