@@ -21,9 +21,9 @@
       "error",
       "always"
     ],
-    "no-undef": [
-      "off",
-      "always"
-    ]
+    "no-undef": "off",
+    "no-constant-condition": "off",
+    "no-useless-escape": "off",
+    "prefer-template": "warn"
   }
 }

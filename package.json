@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/index.js",
     "test": "jest --verbose",
-    "test:lint": "eslint src/index.js",
+    "lint:test": "eslint src",
+    "lint:fix": "eslint src/index.js --fix",
     "generate-docs": "jsdoc src -d docs -r"
   },
   "repository": {

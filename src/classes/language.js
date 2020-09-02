@@ -265,7 +265,7 @@ class Language {
     }
 
     // Check: noDoubleNucleus
-    CheckDoubleNucleus(word, callback) {
+    CheckDoubleNucleus(word) {
         // Check if empty coda is followed by empty onset
         for (var i = 0; i < word.length; i++) {
             if (i != word.length - 1 && word[i].coda.type == '' && word[i + 1].onset.type == '') {
