@@ -1,11 +1,14 @@
-const Language = require('../classes/language');
-
-/* Language options */
+/**
+ * Default options for a new {@link Language}.
+ * @global
+ * @type {langOptions}
+ * @name defaultLangOptions
+ */
 
 const options = {
-    name: 'Test Language',
-    id: 'TEST',
-    desc: 'This language is for testing only.',
+    name: 'Gibberish',
+    id: 'GIB',
+    desc: 'This is the default language for Falagico.',
     phonology: {
         inventory: {
             vowels: {
@@ -15,7 +18,7 @@ const options = {
             },
             consonants: {
                 glides: ['w'],
-                liquids: ['bl','br','pr','tr','dl','dr','kl','kr','gl','gr'],
+                liquids: ['bl', 'br', 'pr', 'tr', 'dl', 'dr', 'kl', 'kr', 'gl', 'gr'],
                 nasals: ['m', 'n'],
                 fricatives: ['f', 'v', 'th', 's', 'z', 'sh', 'h'],
                 affricates: ['b', 'p', 't', 'd', 'k', 'g']
@@ -48,8 +51,4 @@ const options = {
     }
 };
 
-const TestLang = new Language(options);
-
-/* EXPORT */
-
-module.exports = TestLang;
+module.exports = options;
