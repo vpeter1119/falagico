@@ -11,13 +11,13 @@ const defaultOptions = require('./default.js');
 class Language {
 
     /**
-     * @param {langOptions} langOptions Language options object.
+     * @param {langOptions} langOptions Language configuration options.
      */
     constructor(
         /**
         * Language configuration options.
         * @typedef {Object} langOptions
-        * @mixin
+        * @global
         * @property {string} name Full name of the language.
         * @property {string} id Short language ID.
         * @property {string} desc Language description
@@ -130,23 +130,15 @@ class Language {
         /**
          * Basic syllable object.
          * @typedef {Object} syllable
-         * @property {syllable.element} onset Syllable onset (first part).
-         * @property {syllable.element} nucleus Syllable nucleus (middle part, obligatory).
-         * @property {syllable.element} coda Syllable coda (last part).
+         * @property {Syllable.element} onset Syllable onset (first part).
+         * @property {Syllable.element} nucleus Syllable nucleus (middle part, obligatory).
+         * @property {Syllable.element} coda Syllable coda (last part).
          * @example
          * {
          *     onset: {type:["consonants","affricates"],text:"b"},
          *     nucleus: {type:["vowels","low"],text:"a"},
          *     coda: {type:["consonants","trills"],text:"r"}
          * }
-         */
-
-        /**
-         * Syllable element.
-         * @typedef {Object} syllable.element
-         * @memberof syllable
-         * @property {string} type Element type and subtype, e.g. "consonants.approximant".
-         * @property {string} text Element value, e.g. "b".
          */
 
         var syllable = {
