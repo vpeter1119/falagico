@@ -10,21 +10,23 @@
 // Modules
 const _ = require('lodash');
 const random = require('../util/random.js');
+const defaultOptions = require('./default.js');
 
 /**
- * Creates a new Language.
- * @class
+ * @classdesc A naming language which generates random syllables, words, sentences and text based on pre-defined linguistic rules.
+ * @example
+ * const Gibberish = new Language(); // uses default values for langOptions
  */
 class Language {
 
     /**
-     * @constructs Language
+     * Creates a new {@link Language} instance.
      * @param {Object} langOptions Language options object.
      * @param {string} langOptions.name Full name of the language.
      * @param {string} langOptions.id Short language ID.
-     * @param {string} langOptions.desc Language description.
+     * @param {string} langOptions.desc Language description
      * @param {Object} langOptions.phonology Phonological ruleset.
-     * @param {Object} langOptions.phonology.inventory Phonological inventory in format {<type>:{<subtype>:["<option1>","<option2>"...]...}...}.
+     * @param {Object} langOptions.phonology.inventory Phonological inventory in format.
      * @param {Object} langOptions.phonology.phonotactics Rules of syllable construction.
      * @param {string[]} langOptions.phonology.phonotactics.onsets Possible values for syllable onset.
      * @param {string[]} langOptions.phonology.phonotactics.nuclei Possible values for syllable nucleus.
@@ -39,20 +41,26 @@ class Language {
     constructor(
         langOptions
     ) {
+        if (!langOptions || Object.keys(langOptions).length === 0) langOptions = defaultOptions;
         this.phonology = langOptions.phonology;
         this.names = langOptions.names;
+        /** Full name of the language. */
         this.name = langOptions.name;
+        /** Short language ID. */
         this.id = langOptions.id;
+        /** Language description. */
         this.desc = langOptions.desc;
     }
 
-    // Getters
-
-    // Setters
-
     /**
      * Generates a syllable based on the phonological inventory and rules.
-     * @memberof Language
+     * @function
+     * @name Language#Syllable
+     * @memberof module:LanguageModule.Language
+     * @example
+     * const Gibberish = new Language(); // uses default values for langOptions
+     * var syl = Gibberish.Syllable();
+     * console.log(syl.onset + syl.nucleus + syl.coda);
      */
     Syllable() {
         if (!this.phonology.inventory) {

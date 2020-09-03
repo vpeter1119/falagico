@@ -1,19 +1,13 @@
-/**
- * The pre-defined Test language.
- * @module TestLang
+/** Default options for generating a new Language.
+ * @module DefaultOptions
  * @author Peter Vertesi <info@petervertesi.com>
  * @copyright Peter Vertesi, 2020
- * @exports {Language} TestLang
+ * @exports langOptions
  */
-
-const Language = require('../classes/language');
-
-/* Language options */
-
 const options = {
-    name: 'Test Language',
-    id: 'TEST',
-    desc: 'This language is for testing only.',
+    name: 'Gibberish',
+    id: 'GIB',
+    desc: 'This is the default language for Falagico.',
     phonology: {
         inventory: {
             vowels: {
@@ -23,7 +17,7 @@ const options = {
             },
             consonants: {
                 glides: ['w'],
-                liquids: ['bl','br','pr','tr','dl','dr','kl','kr','gl','gr'],
+                liquids: ['bl', 'br', 'pr', 'tr', 'dl', 'dr', 'kl', 'kr', 'gl', 'gr'],
                 nasals: ['m', 'n'],
                 fricatives: ['f', 'v', 'th', 's', 'z', 'sh', 'h'],
                 affricates: ['b', 'p', 't', 'd', 'k', 'g']
@@ -56,12 +50,4 @@ const options = {
     }
 };
 
-/**
- * @memberof Language
- * @instance
- */
-const TestLang = new Language(options);
-
-/* EXPORT */
-
-module.exports = TestLang;
+module.exports = options;
