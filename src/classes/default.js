@@ -1,7 +1,6 @@
 /**
  * Default options for a new {@link Language}.
- * @constant
- * @memberof Language
+ * @global
  * @type {langOptions}
  * @name defaultLangOptions
  */

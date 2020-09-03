@@ -12,6 +12,12 @@
     "plugins/markdown"
   ],
   "templates": {
+    "systemName": "Falagico",
+    "copyright": "Peter Vertesi, 2020",
+    "includeDate": false,
+    "navType": "vertical",
+    "theme": "slate",
+    "collapseSymbols":  false,
     "cleverLinks": false,
     "monospaceLinks": true,
     "useLongnameInNav": 5,
@@ -22,6 +28,6 @@
     "encoding": "utf8",
     "private": true,
     "recurse": true,
-    "template": "./node_modules/minami"
+    "template": "./node_modules/ink-docstrap/template"
   }
 }

@@ -22,7 +22,7 @@ class Language {
         * @property {string} id Short language ID.
         * @property {string} desc Language description
         * @property {langOptions.phonology} phonology Phonological ruleset used for generating syllables.
-        * @default {@link Language.defaultLangOptions}
+        * @default {@link defaultLangOptions}
         */
         langOptions
     ) {
