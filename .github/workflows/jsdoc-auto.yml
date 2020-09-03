@@ -19,6 +19,7 @@ jobs:
           output_dir: ./docs
           config_file: .jsdoc.json
           template: ink-docstrap
+          template_dir: template
           front_page: README.md
 
       - name: Deploy
