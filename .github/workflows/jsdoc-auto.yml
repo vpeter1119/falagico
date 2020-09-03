@@ -19,10 +19,10 @@ jobs:
       - name: Build
         uses: andstor/jsdoc-action@v1
         with:
-          source_dir: ./src
           output_dir: ./docs
           config_file: .jsdoc.json
-          template: template
+          template: ink-docstrap
+          template_dir: template
           front_page: README.md
 
       - name: Deploy
