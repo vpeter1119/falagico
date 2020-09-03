@@ -1,12 +1,13 @@
 /**
  * A utility module to generate randomness.
- * @module RandomModule
+ * @module random
  * @author Peter Vertesi <info@petervertesi.com>
  * @copyright Peter Vertesi, 2020
  */
 
 /**
  * Generates random integer.
+ * @name int
  * @param {number} max Maximum value.
  * @returns {number} Random integer between 0 and {@linkcode max}.
  */
@@ -17,6 +18,7 @@ function GetRandomInt(max) {
 
 /**
  * Pick a random element from an array.
+ * @name pick
  * @param {any[]} array The array to pick from.
  * @returns {any} The random element.
  */

@@ -1,14 +1,18 @@
 /**
  * Falagico generates content in random naming language based on predefined rules.
- * @module Falagico
+ * @module falagico
  * @author Peter Vertesi <info@petervertesi.com>
  * @copyright Peter Vertesi, 2020
- * @requires LanguageModule
+ * @requires languages
+ * @requires random
+ * @exports languages
  * @exports Language
+ * @exports info
  */
 
 // Require modules
 const _ = require('lodash');
+const random = require('./util/random');
 const Language = require('./classes/language');
 
 // Import default languages
@@ -25,6 +29,7 @@ const messages = {
 
 /**
  * Get information on the language.
+ * @name info
  * @param {string} lang One of the default languages exported by {@link module:LanguageModule}.
  * @returns {string}
  */
@@ -39,11 +44,12 @@ function GetInfo(lang) {
     }
 }
 
-/* EXPORT */
-
 module.exports = {
     messages,
     Language,
     languages: defaultLangs,
-    info: GetInfo
+    info: GetInfo,
+    util: {
+        random
+    }
 };

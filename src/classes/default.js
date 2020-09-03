@@ -1,9 +1,11 @@
-/** Default options for generating a new Language.
- * @module DefaultOptions
- * @author Peter Vertesi <info@petervertesi.com>
- * @copyright Peter Vertesi, 2020
- * @exports langOptions
+/**
+ * Default options for a new {@link Language}.
+ * @constant
+ * @memberof Language
+ * @type {langOptions}
+ * @name defaultLangOptions
  */
+
 const options = {
     name: 'Gibberish',
     id: 'GIB',

@@ -1,12 +1,3 @@
-/**
- * This module uses the following depedencies: [lodash]{@link https://github.com/lodash/lodash} and {@link RandomModule}.
- * @module LanguageModule
- * @author Peter Vertesi <info@petervertesi.com>
- * @copyright Peter Vertesi, 2020
- * @requires lodash
- * @requires RandomModule
- */
-
 // Modules
 const _ = require('lodash');
 const random = require('../util/random.js');
@@ -20,29 +11,98 @@ const defaultOptions = require('./default.js');
 class Language {
 
     /**
-     * Creates a new {@link Language} instance.
-     * @param {Object} langOptions Language options object.
-     * @param {string} langOptions.name Full name of the language.
-     * @param {string} langOptions.id Short language ID.
-     * @param {string} langOptions.desc Language description
-     * @param {Object} langOptions.phonology Phonological ruleset.
-     * @param {Object} langOptions.phonology.inventory Phonological inventory in format.
-     * @param {Object} langOptions.phonology.phonotactics Rules of syllable construction.
-     * @param {string[]} langOptions.phonology.phonotactics.onsets Possible values for syllable onset.
-     * @param {string[]} langOptions.phonology.phonotactics.nuclei Possible values for syllable nucleus.
-     * @param {string[]} langOptions.phonology.phonotactics.codas Possible values for syllable coda.
-     * @param {Object} langOptions.phonology.constraints Constraints to apply during syllable creation.
-     * @param {boolean} langOptions.phonology.constraints.noLiquidAfterCoda Re-generate syllables with liquid onset if previous syllable has non-empty coda.
-     * @param {boolean} langOptions.phonology.constraints.noLiquidAfterCoda Re-generate syllables with glide onset if previous syllable has non-empty coda.
-     * @param {boolean} langOptions.phonology.constraints.noDoubleNucleus Re-generate syllables with empty onset if previous syllable has empty coda.
-     * @param {number} langOptions.other Miscellaneous settings.
-     * @param {number} langOptions.other.maxWordLength Maximum length of generated words.
+     * @param {langOptions} langOptions Language options object.
      */
     constructor(
+        /**
+        * Language configuration options.
+        * @typedef {Object} langOptions
+        * @mixin
+        * @property {string} name Full name of the language.
+        * @property {string} id Short language ID.
+        * @property {string} desc Language description
+        * @property {langOptions.phonology} phonology Phonological ruleset used for generating syllables.
+        * @default {@link Language.defaultLangOptions}
+        */
         langOptions
     ) {
         if (!langOptions || Object.keys(langOptions).length === 0) langOptions = defaultOptions;
-        this.phonology = langOptions.phonology;
+        /**
+         * Phonological ruleset.
+         * @typedef {Object} phonology
+         * @memberof langOptions
+         * @property {phonology.inventory} inventory Phonological inventory in format.
+         * @property {phonology.phonotactics} phonotactics Rules of syllable generation.
+         * @property {phonology.constraints} constraints Constraints to apply during syllable creation.
+         * @property {phonology.other} Miscellaneous language settings.
+        */
+        this.phonology = {
+            /**
+             * Phonological inventory.
+             * @typedef {Object} phonology.inventory
+             * @memberof phonology
+             * @property {Object} vowels Contains vowel categories.
+             * @example
+             * {
+             *   vowels: {
+             *     low: ["a","u","o"],
+             *     mid: [],
+             *     high: ["e","i"]
+             *   },
+             *   consonants: {
+             *     glides: ['w'],
+             *     liquids: ['bl', 'br', 'pr', 'tr', 'dl', 'dr', 'kl', 'kr', 'gl', 'gr'],
+             *     nasals: ['m', 'n'],
+             *     fricatives: ['f', 'v', 'th', 's', 'z', 'sh', 'h'],
+             *     affricates: ['b', 'p', 't', 'd', 'k', 'g']
+             *   }
+             * }
+             * @property {Object} consonants Contains consonant categories.
+             *
+            */
+            inventory: langOptions.phonology.inventory || defaultOptions.phonology.inventory,
+            /**
+            * Rules of syllable generation.
+            * @typedef {Object} phonology.phonotactics
+            * @memberof phonology
+            * @property {Array<string[]>} onsets Possible values for onset.
+            * @property {Array<string[]>} nuclei Possible values for nucleus.
+            * @property {Array<string[]>} codas Possible values for coda.
+            * @example
+            * {
+            *   onsets: [[], ['consonants', 'fricatives'], ['consonants', 'affricates'], ['consonants', 'liquids']],
+            *   nuclei: [['vowels', 'low'], ['vowels', 'high']],
+            *   codas: [[], ['consonants', 'nasals']]
+            * }
+            */
+            phonotactics: langOptions.phonology.phonotactics || defaultOptions.phonology.phonotactics,
+            /**
+            * Constraints to apply during syllable creation.
+            * @typedef {Object} phonology.constraints
+            * @memberof phonology
+            * @property {boolean} noLiquidAfterCoda Re-generate syllables with liquid onset if previous syllable has non-empty coda.
+            * @property {boolean} noGlideAfterCoda Re-generate syllables with glide onset if previous syllable has non-empty coda.
+            * @property {boolean} noDoubleNucleus Re-generate syllables with empty onset if previous syllable has empty coda.
+            * @example
+            * {
+            *   noLiquidAfterCoda: true,
+            *   noGlideAfterCoda: false,
+            *   noDoubleNucleus: true
+            * }
+            */
+            constraints: langOptions.phonology.constraints || defaultOptions.phonology.constraints,
+            /**
+            * Miscellaneous language settings.
+            * @typedef {Object} phonology.other
+            * @memberof phonology
+            * @property {number} maxWordLength Maximum length of randomly generated words (in syllables).
+            * @example
+            * {
+            *   maxWordLength: 3
+            * }
+           */
+            other: langOptions.phonology.other || defaultOptions.phonology.other
+        };
         this.names = langOptions.names;
         /** Full name of the language. */
         this.name = langOptions.name;
@@ -55,17 +115,40 @@ class Language {
     /**
      * Generates a syllable based on the phonological inventory and rules.
      * @function
-     * @name Language#Syllable
-     * @memberof module:LanguageModule.Language
+     * @memberof Language
+     * @returns {syllable} Random syllable.
      * @example
      * const Gibberish = new Language(); // uses default values for langOptions
      * var syl = Gibberish.Syllable();
-     * console.log(syl.onset + syl.nucleus + syl.coda);
+     * console.log(syl.onset + syl.nucleus + syl.coda); // bar
      */
     Syllable() {
         if (!this.phonology.inventory) {
             return;
         }
+
+        /**
+         * Basic syllable object.
+         * @typedef {Object} syllable
+         * @property {syllable.element} onset Syllable onset (first part).
+         * @property {syllable.element} nucleus Syllable nucleus (middle part, obligatory).
+         * @property {syllable.element} coda Syllable coda (last part).
+         * @example
+         * {
+         *     onset: {type:["consonants","affricates"],text:"b"},
+         *     nucleus: {type:["vowels","low"],text:"a"},
+         *     coda: {type:["consonants","trills"],text:"r"}
+         * }
+         */
+
+        /**
+         * Syllable element.
+         * @typedef {Object} syllable.element
+         * @memberof syllable
+         * @property {string} type Element type and subtype, e.g. "consonants.approximant".
+         * @property {string} text Element value, e.g. "b".
+         */
+
         var syllable = {
             onset: {
                 type: '',
@@ -107,7 +190,7 @@ class Language {
     /**
      * Generates a random word based on the phonological inventory and rules.
      * @memberof Language
-     * @param {number} length Word length in syllables. Default: random integer between 1 and <langOptions.phonology.other.maxWordLength>.
+     * @param {number} length Word length in syllables. Default: random integer between 1 and {@link langOptions.phonology.other.maxWordLength}.
      * @returns {string} Random word.
      */
     Word(length = random.int(this.phonology.other.maxWordLength-1)+1) {

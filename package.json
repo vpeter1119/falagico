@@ -8,7 +8,7 @@
     "test": "jest --verbose && eslint src",
     "lint:test": "eslint src",
     "lint:fix": "eslint src --fix && jest --verbose",
-    "generate-docs": "jsdoc src -d docs -r"
+    "generate-docs": "jsdoc --configure .jsdoc.json --verbose"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
   "devDependencies": {
     "eslint": "^7.8.1",
     "jest": "^26.4.2",
-    "jsdoc": "^3.6.5"
+    "jsdoc": "^3.6.5",
+    "minami": "^1.2.3"
   }
 }

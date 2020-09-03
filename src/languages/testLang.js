@@ -1,11 +1,3 @@
-/**
- * The pre-defined Test language.
- * @module TestLang
- * @author Peter Vertesi <info@petervertesi.com>
- * @copyright Peter Vertesi, 2020
- * @exports {Language} TestLang
- */
-
 const Language = require('../classes/language');
 
 /* Language options */
@@ -56,10 +48,6 @@ const options = {
     }
 };
 
-/**
- * @memberof Language
- * @instance
- */
 const TestLang = new Language(options);
 
 /* EXPORT */

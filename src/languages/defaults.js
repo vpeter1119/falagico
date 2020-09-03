@@ -1,9 +1,7 @@
 /**
  * This module exports the default languages pre-configured in Falagico.
- * @module DefaultLanguages
+ * @module languages
  * @author Peter Vertesi <info@petervertesi.com>
- * @requires TestLang
- * @requires Elvish
  */
 
 // Import languages

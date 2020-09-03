@@ -1,11 +1,3 @@
-/**
- * The pre-defined Elvish language.
- * @module Elvish
- * @author Peter Vertesi <info@petervertesi.com>
- * @copyright Peter Vertesi, 2020
- * @exports {Language} Elvish
- */
-
 const Language = require('../classes/language');
 
 /* Language options */
