@@ -30,51 +30,44 @@ class Syllable {
          * First part of the syllable (optional).
          * @type {Syllable.element}
          */
-        this.onset = elements.onset || random.pick(this.options.phonology.onsets);
+        this.onset = elements.onset || this.GenerateOnset();
         /**
          * Middle part of the syllable (obligatory). In most cases, nucleus is a vowel.
          * @type {Syllable.element}
          */
-        this.nucleus = elements.nucleus || random.pick(this.options.phonology.nuclei);
+        this.nucleus = elements.nucleus || this.GenerateNucleus();
         /**
          * Last part of the syllable (optional).
          * @type {Syllable.element}
          */
-        this.coda = elements.coda || random.pick(this.options.phonology.codas);
+        this.coda = elements.coda || this.GenerateCoda();
     }
 
-    // Getters
-    get onset() {
-        return this.onset;
-    }
-    get nucleus() {
-        return this.nucleus;
-    }
-    get coda() {
-        return this.coda;
+    GenerateOnset() {
+        var onsetType = random.pick(this.options.phonology.phonotactics.onsets);
+        var onsetText = onsetType.length ? random.pick(this.options.phonology.inventory[onsetType[0]][onsetType[1]]) : '';
+        return {
+            type: onsetType || '',
+            text: onsetText
+        };
     }
 
-    // Setters
-    set onset(value) {
-        if (value.type && this.options.phonology.phonotactics.onsets.includes(value.type)) {
-            this.onset = value;
-        } else {
-            throw ('Invalid onset type.');
-        }
+    GenerateNucleus() {
+        var nucleusType = random.pick(this.options.phonology.phonotactics.nuclei);
+        var nucleusText = nucleusType.length ? random.pick(this.options.phonology.inventory[nucleusType[0]][nucleusType[1]]) : '';
+        return {
+            type: nucleusType || '',
+            text: nucleusText
+        };
     }
-    set nucleus(value) {
-        if (value.type && this.options.phonology.phonotactics.nuclei.includes(value.type)) {
-            this.nucleus = value;
-        } else {
-            throw('Invalid nucleus type.');
-        }
-    }
-    set coda(value) {
-        if (value.type && this.options.phonology.phonotactics.codas.includes(value.type)) {
-            this.coda = value;
-        } else {
-            throw ('Invalid coda type.');
-        }
+
+    GenerateCoda() {
+        var codaType = random.pick(this.options.phonology.phonotactics.codas);
+        var codaText = codaType.length ? random.pick(this.options.phonology.inventory[codaType[0]][codaType[1]]) : '';
+        return {
+            type: codaType || '',
+            text: codaText
+        };
     }
 }
 
