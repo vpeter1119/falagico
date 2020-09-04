@@ -140,11 +140,6 @@ class Language {
         if (!this.phonology.inventory) {
             return;
         }
-        /*
-         Constraints:
-            - no liquid onset after coda
-            - no null onset after null coda (no double nucleus)
-         */
         var word = [];
         var wordProcessed = '';
         for (var i = 0; i < length; i++) {
