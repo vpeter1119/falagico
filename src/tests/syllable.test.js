@@ -55,7 +55,7 @@ describe('generator methods return valid elements', () => {
     var options = defaultOptions;
     var syl = new Syllable();
 
-    describe('GenerateOnset()', () => {
+    describe('Syllable.GenerateOnset()', () => {
         var onset = syl.GenerateOnset();
         var validOnsetTypes = options.phonology.phonotactics.onsets;
 
@@ -68,7 +68,7 @@ describe('generator methods return valid elements', () => {
         });
     });
 
-    describe('GenerateOnset(type) with valid type', () => {
+    describe('Syllable.GenerateOnset(type) with valid type', () => {
         var validOnsetTypes = options.phonology.phonotactics.onsets;
         var type = random.pick(validOnsetTypes);
         var onset = syl.GenerateOnset(type);
@@ -85,7 +85,7 @@ describe('generator methods return valid elements', () => {
         });
     });
 
-    describe('GenerateOnset(type) with invalid type', () => {
+    describe('Syllable.GenerateOnset(type) with invalid type', () => {
         var validOnsetTypes = options.phonology.phonotactics.onsets;
         var type = ['thisIsNot','aValidType'];
         var onset = syl.GenerateOnset(type);
@@ -99,7 +99,7 @@ describe('generator methods return valid elements', () => {
         });
     });
 
-    describe('GenerateNucleus()', () => {
+    describe('Syllable.GenerateNucleus()', () => {
         var nucleus = syl.GenerateNucleus();
         var validNucleusTypes = options.phonology.phonotactics.nuclei;
 
@@ -112,7 +112,7 @@ describe('generator methods return valid elements', () => {
         });
     });
 
-    describe('GenerateNucleus(type) with valid type', () => {
+    describe('Syllable.GenerateNucleus(type) with valid type', () => {
         var validNucleusTypes = options.phonology.phonotactics.nuclei;
         var type = random.pick(validNucleusTypes);
         var nucleus = syl.GenerateNucleus(type);
@@ -129,7 +129,7 @@ describe('generator methods return valid elements', () => {
         });
     });
 
-    describe('GenerateNucleus(type) with invalid type', () => {
+    describe('Syllable.GenerateNucleus(type) with invalid type', () => {
         var validNucleusTypes = options.phonology.phonotactics.nuclei;
         var type = ['thisIsNot', 'aValidType'];
         var nucleus = syl.GenerateNucleus(type);
@@ -143,7 +143,7 @@ describe('generator methods return valid elements', () => {
         });
     });
 
-    describe('GenerateCoda()', () => {
+    describe('Syllable.GenerateCoda()', () => {
         var coda = syl.GenerateCoda();
         var validCodaTypes = options.phonology.phonotactics.codas;
 
@@ -156,7 +156,7 @@ describe('generator methods return valid elements', () => {
         });
     });
 
-    describe('GenerateCoda(type) with valid type', () => {
+    describe('Syllable.GenerateCoda(type) with valid type', () => {
         var validCodaTypes = options.phonology.phonotactics.codas;
         var type = random.pick(validCodaTypes);
         var coda = syl.GenerateCoda(type);
@@ -173,7 +173,7 @@ describe('generator methods return valid elements', () => {
         });
     });
 
-    describe('GenerateCoda(type) with invalid type', () => {
+    describe('Syllable.GenerateCoda(type) with invalid type', () => {
         var validCodaTypes = options.phonology.phonotactics.codas;
         var type = ['thisIsNot', 'aValidType'];
         var coda = syl.GenerateCoda(type);
@@ -188,7 +188,7 @@ describe('generator methods return valid elements', () => {
     });
 });
 
-describe('ChangeElementType() without parameters', () => {
+describe('Syllable.ChangeElementType() without parameters', () => {
     var syl = new Syllable();
 
     it('throws a SyntaxError', () => {
@@ -197,7 +197,7 @@ describe('ChangeElementType() without parameters', () => {
 
 });
 
-describe('ChangeElementType(element) with a valid elementType', () => {
+describe('Syllable.ChangeElementType(element) with a valid elementType', () => {
     var syl = new Syllable();
     var element = 'nucleus';
     var oldElement = syl[element];
@@ -209,7 +209,7 @@ describe('ChangeElementType(element) with a valid elementType', () => {
     });
 });
 
-describe('ChangeElementType(element) with an invalid elementType', () => {
+describe('Syllable.ChangeElementType(element) with an invalid elementType', () => {
     var syl = new Syllable();
     var elementType = 'thisIsNotAValidType';
 
@@ -219,7 +219,7 @@ describe('ChangeElementType(element) with an invalid elementType', () => {
 
 });
 
-describe('Regen()', () => {
+describe('Syllable.Regen()', () => {
     var syl = new Syllable();
     var elementType = 'thisIsNotAValidType';
 
