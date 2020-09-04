@@ -149,9 +149,19 @@ class Syllable {
     /**
      * Returns syllable text as string.
      * @memberof Syllable
+     * @returns {string}
      * */
     toString() {
         return `${this.onset.text}${this.nucleus.text}${this.coda.text}`;
+    }
+
+    /**
+     * Returns syllable as an array of strings.
+     * @memberof Syllable
+     * @returns {string[]}
+     * */
+    toArray() {
+        return [this.onset.text,this.nucleus.text,this.coda.text];
     }
 }
 

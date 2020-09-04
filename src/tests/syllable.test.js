@@ -2,6 +2,21 @@ const Syllable = require('../classes/syllable');
 const defaultOptions = require('../classes/default');
 const random = require('../util/random');
 
+const defaultElements = {
+    onset: {
+        type: ['consonants', 'affricates'],
+        text: 'b'
+    },
+    nucleus: {
+        type: ['vowels', 'low'],
+        text: 'a'
+    },
+    coda: {
+        type: ['consonants', 'approximants'],
+        text: 'r'
+    }
+};
+
 describe('Syllable() with empty constructor', () => {
     var syl = new Syllable();
 
@@ -19,20 +34,7 @@ describe('Syllable() with empty constructor', () => {
 
 describe('Syllable(elements) with valid parameters', () => {
     var options = defaultOptions;
-    var elements = {
-        onset: {
-            type: ['consonants','affricates'],
-            text: 'b'
-        },
-        nucleus: {
-            type: ['vowels', 'low'],
-            text: 'a'
-        },
-        coda: {
-            type: ['consonants', 'approximants'],
-            text: 'r'
-        }
-    };
+    var elements = defaultElements;
     var syl = new Syllable(options, elements);
 
     it('returns a valid Syllable instance', () => {
@@ -218,20 +220,7 @@ describe('ChangeElementType(element) with an invalid elementType', () => {
 });
 
 describe('Syllable.toString()', () => {
-    var elements = {
-        onset: {
-            type: ['consonants', 'affricates'],
-            text: 'b'
-        },
-        nucleus: {
-            type: ['vowels', 'low'],
-            text: 'a'
-        },
-        coda: {
-            type: ['consonants', 'approximants'],
-            text: 'r'
-        }
-    };
+    var elements = defaultElements;
     var syl = new Syllable(defaultOptions, elements);
     var str = syl.toString();
 
@@ -241,6 +230,23 @@ describe('Syllable.toString()', () => {
 
     it('matches the requested elements', () => {
         expect(str).toBe(`${elements.onset.text}${elements.nucleus.text}${elements.coda.text}`);
+    });
+
+});
+
+describe('Syllable.toArray()', () => {
+    var elements = defaultElements;
+    var syl = new Syllable(defaultOptions, elements);
+    var str = syl.toArray();
+
+    it('returns an array of strings', () => {
+        expect(str.length).toBe(3);
+    });
+
+    it('matches the requested elements', () => {
+        expect(str[0]).toBe('b');
+        expect(str[1]).toBe('a');
+        expect(str[2]).toBe('r');
     });
 
 });
