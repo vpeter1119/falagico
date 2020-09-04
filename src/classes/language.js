@@ -27,7 +27,7 @@ class Language {
         */
         langOptions
     ) {
-        if (!langOptions || Object.keys(langOptions).length === 0) langOptions = defaultOptions;
+        this.options = (!langOptions || Object.keys(langOptions).length === 0) ? defaultOptions : langOptions;
         /**
          * Phonological ruleset.
          * @typedef {Object} phonology
@@ -61,7 +61,7 @@ class Language {
              * @property {Object} consonants Contains consonant categories.
              *
             */
-            inventory: langOptions.phonology.inventory || defaultOptions.phonology.inventory,
+            inventory: this.options.phonology.inventory,
             /**
             * Rules of syllable generation.
             * @typedef {Object} phonology.phonotactics
@@ -76,7 +76,7 @@ class Language {
             *   codas: [[], ['consonants', 'nasals']]
             * }
             */
-            phonotactics: langOptions.phonology.phonotactics || defaultOptions.phonology.phonotactics,
+            phonotactics: this.options.phonology.phonotactics,
             /**
             * Constraints to apply during syllable creation.
             * @typedef {Object} phonology.constraints
@@ -91,7 +91,7 @@ class Language {
             *   noDoubleNucleus: true
             * }
             */
-            constraints: langOptions.phonology.constraints || defaultOptions.phonology.constraints,
+            constraints: this.options.phonology.constraints,
             /**
             * Miscellaneous language settings.
             * @typedef {Object} phonology.other
@@ -102,15 +102,15 @@ class Language {
             *   maxWordLength: 3
             * }
            */
-            other: langOptions.phonology.other || defaultOptions.phonology.other
+            other: this.options.phonology.other
         };
-        this.names = langOptions.names;
+        this.names = this.options.names;
         /** Full name of the language. */
-        this.name = langOptions.name;
+        this.name = this.options.name;
         /** Short language ID. */
-        this.id = langOptions.id;
+        this.id = this.options.id;
         /** Language description. */
-        this.desc = langOptions.desc;
+        this.desc = this.options.desc;
     }
 
     /**
@@ -127,7 +127,7 @@ class Language {
         if (!this.phonology.inventory) {
             return;
         }
-        return new Syllable(this.langOptions, elements);
+        return new Syllable(this.options, elements);
     }
 
     /**
