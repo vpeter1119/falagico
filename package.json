@@ -1,6 +1,6 @@
 {
   "name": "falagico",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "FaLaGiCo, the Fantasy Languages Gibberish Converter translates any text to a gibberish that resembles the selected fantasy language.",
   "main": "src/index.js",
   "scripts": {
