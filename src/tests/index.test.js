@@ -1,5 +1,4 @@
 const main = require('../index.js');
-const Language = main.Language;
 
 describe('exported languages', () => {
     const defaultLanguages = main.languages;
