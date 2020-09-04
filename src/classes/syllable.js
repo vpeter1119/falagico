@@ -109,6 +109,10 @@ class Syllable {
      * @returns {Promise<Syllable.element>} The new element.
      */
     ChangeElementType(element) {
+        var syntaxError = new SyntaxError('You must provide an element.');
+        if (!element) throw syntaxError;
+        var typeError = new TypeError(`${element} is not a valid element. Must be 'onset', 'nucleus' or 'coda'.`);
+        if (element != 'onset' && element != 'coda' && element != 'nucleus') throw typeError;
         var pt = this.options.phonology.phonotactics;
         var oldElementType;
         var newElementType;
@@ -137,9 +141,9 @@ class Syllable {
                     resolve(newElement);
                     break;
                 default:
-                    throw new TypeError(`${element} is not a valid element. Must be 'onset', 'nucleus' or 'coda'.`);
+                    throw typeError;
             }
-        })
+        });
     }
 }
 
