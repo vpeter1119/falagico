@@ -185,3 +185,25 @@ describe('generator methods return valid elements', () => {
         });
     });
 });
+
+describe('ChangeElementType(element) with a valid elementType', () => {
+    var syl = new Syllable(defaultOptions);
+    var element = 'nucleus';
+    var oldElement = syl[element];
+
+    it('changes type of the specified element', () => {
+        syl.ChangeElementType(element);
+        var newElement = syl[element];
+        expect(newElement.type).not.toBe(oldElement.type);
+    });
+});
+
+describe('ChangeElementType(element) with an invalid elementType', () => {
+    var syl = new Syllable(defaultOptions);
+    var elementType = 'thisIsNotAValidType';
+
+    it('throws a TypeError', () => {
+        expect(() => { syl.ChangeElementType(elementType); }).toThrow(TypeError);
+    });
+
+});

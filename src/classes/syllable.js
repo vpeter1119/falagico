@@ -103,7 +103,44 @@ class Syllable {
         };
     }
 
-    
+    /**
+     * Changes the specified syllable element (onset, nucleus or coda) to another valid type.
+     * @param {string} element Syllable element to change. Must be 'onset', 'nucleus' or 'coda'.
+     * @returns {Promise<Syllable.element>} The new element.
+     */
+    ChangeElementType(element) {
+        var pt = this.options.phonology.phonotactics;
+        var oldElementType;
+        var newElementType;
+        var newElement;
+        return new Promise((resolve, reject) => {
+            switch (element) {
+                case 'onset':
+                    oldElementType = this.onset.type;
+                    newElementType = random.pick(pt.onsets.filter(et => et != oldElementType));
+                    newElement = this.GenerateOnset(newElementType);
+                    this.onset = newElement;
+                    resolve(newElement);
+                    break;
+                case 'nucleus':
+                    oldElementType = this.nucleus.type;
+                    newElementType = random.pick(pt.nuclei.filter(et => et != oldElementType));
+                    newElement = this.GenerateNucleus(newElementType);
+                    this.nucleus = newElement;
+                    resolve(newElement);
+                    break;
+                case 'coda':
+                    oldElementType = this.coda.type;
+                    newElementType = random.pick(pt.codas.filter(et => et != oldElementType));
+                    newElement = this.GenerateCoda(newElementType);
+                    this.coda = newElement;
+                    resolve(newElement);
+                    break;
+                default:
+                    throw new TypeError(`${element} is not a valid element. Must be 'onset', 'nucleus' or 'coda'.`);
+            }
+        })
+    }
 }
 
 module.exports = Syllable;
