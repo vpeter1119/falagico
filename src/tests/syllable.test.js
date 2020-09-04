@@ -53,7 +53,7 @@ describe('Syllable(elements) with valid parameters', () => {
 
 describe('generator methods return valid elements', () => {
     var options = defaultOptions;
-    var syl = new Syllable(options);
+    var syl = new Syllable();
 
     describe('GenerateOnset()', () => {
         var onset = syl.GenerateOnset();
@@ -189,7 +189,7 @@ describe('generator methods return valid elements', () => {
 });
 
 describe('ChangeElementType() without parameters', () => {
-    var syl = new Syllable(defaultOptions);
+    var syl = new Syllable();
 
     it('throws a SyntaxError', () => {
         expect(() => { syl.ChangeElementType(); }).toThrow(SyntaxError);
@@ -198,7 +198,7 @@ describe('ChangeElementType() without parameters', () => {
 });
 
 describe('ChangeElementType(element) with a valid elementType', () => {
-    var syl = new Syllable(defaultOptions);
+    var syl = new Syllable();
     var element = 'nucleus';
     var oldElement = syl[element];
 
@@ -210,7 +210,17 @@ describe('ChangeElementType(element) with a valid elementType', () => {
 });
 
 describe('ChangeElementType(element) with an invalid elementType', () => {
-    var syl = new Syllable(defaultOptions);
+    var syl = new Syllable();
+    var elementType = 'thisIsNotAValidType';
+
+    it('throws a TypeError', () => {
+        expect(() => { syl.ChangeElementType(elementType); }).toThrow(TypeError);
+    });
+
+});
+
+describe('Regen()', () => {
+    var syl = new Syllable();
     var elementType = 'thisIsNotAValidType';
 
     it('throws a TypeError', () => {

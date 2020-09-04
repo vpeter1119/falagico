@@ -147,6 +147,25 @@ class Syllable {
     }
 
     /**
+     * Completely regenerates syllable elements.
+     * @memberof Syllable
+     * @returns {Promise<Syllable>} Syllable elements object.
+     * */
+    Regen() {
+        return new Promise(resolve => {
+            this.onset = this.GenerateOnset();
+            this.nucleus = this.GenerateNucleus();
+            this.coda = this.GenerateCoda();
+            var newSyl = {
+                onset: this.onset,
+                nucleus: this.nucleus,
+                coda: this.coda
+            };
+            resolve(newSyl);
+        });
+    }
+
+    /**
      * Returns syllable text as string.
      * @memberof Syllable
      * @returns {string}
