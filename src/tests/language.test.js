@@ -1,6 +1,7 @@
 const Language = require('../classes/language');
 const Syllable = require('../classes/syllable');
 const defaultOptions = require('../classes/default');
+const languages = require('../languages/defaults');
 
 const defaultElements = {
     onset: {
@@ -25,6 +26,7 @@ test('empty constructor for Language returns default options', () => {
 
 describe('Language.Syllable()', () => {
     var lang = new Language();
+
     describe('without parameters', () => {
         var syl = lang.Syllable();
 
@@ -50,6 +52,19 @@ describe('Language.Syllable()', () => {
 
         it('with the requested elements', () => {
             expect(syl.toString()).toEqual('bar');
+        });
+    });
+
+    describe('for Elvish', () => {
+        var Elvish = languages.Elvish;
+        var elvishSyl = Elvish.Syllable();
+
+        it('returns correct type', () => {
+            expect(elvishSyl).toBeInstanceOf(Syllable);
+        });
+
+        it('correct options', () => {
+            expect(elvishSyl.options).toBe(Elvish.options);
         });
     });
 });
