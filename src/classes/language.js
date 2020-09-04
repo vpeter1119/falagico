@@ -2,6 +2,7 @@
 const _ = require('lodash');
 const random = require('../util/random.js');
 const defaultOptions = require('./default.js');
+const Syllable = require('./syllable');
 
 /**
  * @classdesc A naming language which generates random syllables, words, sentences and text based on pre-defined linguistic rules.
@@ -116,67 +117,17 @@ class Language {
      * Generates a syllable based on the phonological inventory and rules.
      * @function
      * @memberof Language
-     * @returns {syllable} Random syllable.
+     * @returns {Syllable} Random syllable.
      * @example
      * const Gibberish = new Language(); // uses default values for langOptions
      * var syl = Gibberish.Syllable();
-     * console.log(syl.onset + syl.nucleus + syl.coda); // bar
+     * console.log(syl).toString(); // bar
      */
-    Syllable() {
+    Syllable(elements) {
         if (!this.phonology.inventory) {
             return;
         }
-
-        /**
-         * Basic syllable object.
-         * @typedef {Object} syllable
-         * @property {Syllable.element} onset Syllable onset (first part).
-         * @property {Syllable.element} nucleus Syllable nucleus (middle part, obligatory).
-         * @property {Syllable.element} coda Syllable coda (last part).
-         * @example
-         * {
-         *     onset: {type:["consonants","affricates"],text:"b"},
-         *     nucleus: {type:["vowels","low"],text:"a"},
-         *     coda: {type:["consonants","trills"],text:"r"}
-         * }
-         */
-
-        var syllable = {
-            onset: {
-                type: '',
-                text: ''
-            },
-            nucleus: {
-                type: '',
-                text: ''
-            },
-            coda: {
-                type: '',
-                text: ''
-            }
-        };
-        // Generate nucleus
-        var nucleusType = random.pick(this.phonology.phonotactics.nuclei);
-        var nucleus = random.pick(this.phonology.inventory[nucleusType[0]][nucleusType[1]]);
-        syllable.nucleus = {
-            type: nucleusType[1] || '',
-            text: nucleus
-        };
-        // Generate onset
-        var onsetType = random.pick(this.phonology.phonotactics.onsets);
-        var onset = onsetType.length ? random.pick(this.phonology.inventory[onsetType[0]][onsetType[1]]) : '';
-        syllable.onset = {
-            type: onsetType[1] || '',
-            text: onset
-        };
-        // Generate coda
-        var codaType = random.pick(this.phonology.phonotactics.codas);
-        var coda = codaType.length ? random.pick(this.phonology.inventory[codaType[0]][codaType[1]]) : '';
-        syllable.coda = {
-            type: codaType[1] || '',
-            text: coda
-        };
-        return syllable;
+        return new Syllable(this.langOptions, elements);
     }
 
     /**
@@ -272,12 +223,7 @@ class Language {
         return convertedSentences.join(' ');
     }
 
-    /**
-     * Generate random syllable based on simple phonological rules.
-     * @memberof Language
-     * @param {string} pattern Syllable pattern, e.g. "CVC". Default: random pattern from langOptions.
-     * @returns {string} Random syllable.
-     */
+    // Simple syllable generation
     SyllableSimple(pattern = random.pick(this.phonology.phonotacticsSimple)) {
         var syllable = [];
         var sylElList = pattern.split('');
@@ -312,54 +258,42 @@ class Language {
         return `${fullName  } (${  type  })`;
     }
 
-    // Check: noLiquidAfterCoda
+    /**
+     * Regenerates onset if non-empty coda is followed by liquid onset.
+     * @param {Syllable[]} word
+     */
     CheckLiquid(word) {
-        // Check if non-empty coda is followed by liquid onset
+        // Check if 
         for (var i = 0; i < word.length; i++) {
             if (i != word.length - 1 && word[i].coda.type != '' && word[i + 1].onset.type == 'liquids') {
                 // Generate a syllable with non-liquid onset
-                while (true) {
-                    var syl = this.Syllable();
-                    if (syl.onset.type != 'liquids') {
-                        word[i + 1] = syl;
-                        break;
-                    }
-                }
+                word[i + 1].ChangeElementType('onset');
             }
         }
         return word;
     }
-    // Check: noGlideAfterCoda
+    /**
+     * Regenerates onset if non-empty coda is followed by glide onset.
+     * @param {Syllable[]} word
+     */
     CheckGlide(word) {
-        // Check if non-empty coda is followed by liquid onset
         for (var i = 0; i < word.length; i++) {
             if (i != word.length - 1 && word[i].coda.type != '' && word[i + 1].onset.type == 'glides') {
-                // Generate a syllable with non-liquid onset
-                while (true) {
-                    var syl = this.Syllable();
-                    if (syl.onset.type != 'glides') {
-                        word[i + 1] = syl;
-                        break;
-                    }
-                }
+                // Generate a syllable with non-glide onset
+                word[i + 1].ChangeElementType('onset');
             }
         }
         return word;
     }
-
-    // Check: noDoubleNucleus
+    /**
+     * Regenerates onset if empty coda is followed by empty onset
+     * @param {any} word
+     */
     CheckDoubleNucleus(word) {
-        // Check if empty coda is followed by empty onset
         for (var i = 0; i < word.length; i++) {
             if (i != word.length - 1 && word[i].coda.type == '' && word[i + 1].onset.type == '') {
                 // Generate a syllable with non-empty onset
-                while (true) {
-                    var syl = this.Syllable();
-                    if (syl.onset.type != '') {
-                        word[i + 1] = syl;
-                        break;
-                    }
-                }
+                word[i + 1].ChangeElementType('onset');
             }
         }
         return word;
