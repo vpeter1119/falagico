@@ -43,6 +43,11 @@ class Syllable {
         this.coda = elements.coda || this.GenerateCoda();
     }
 
+    /**
+     * Generate a valid syllable onset.
+     * @memberof Syllable
+     * @return {Syllable.element} A valid onset.
+     * */
     GenerateOnset() {
         var onsetType = random.pick(this.options.phonology.phonotactics.onsets);
         var onsetText = onsetType.length ? random.pick(this.options.phonology.inventory[onsetType[0]][onsetType[1]]) : '';
@@ -52,6 +57,11 @@ class Syllable {
         };
     }
 
+    /**
+    * Generate a valid syllable nucleus.
+    * @memberof Syllable
+    * @return {Syllable.element} A valid nucleus.
+    * */
     GenerateNucleus() {
         var nucleusType = random.pick(this.options.phonology.phonotactics.nuclei);
         var nucleusText = nucleusType.length ? random.pick(this.options.phonology.inventory[nucleusType[0]][nucleusType[1]]) : '';
@@ -61,6 +71,11 @@ class Syllable {
         };
     }
 
+    /**
+    * Generate a valid syllable coda.
+    * @memberof Syllable
+    * @return {Syllable.element} A valid coda.
+    * */
     GenerateCoda() {
         var codaType = random.pick(this.options.phonology.phonotactics.codas);
         var codaText = codaType.length ? random.pick(this.options.phonology.inventory[codaType[0]][codaType[1]]) : '';
