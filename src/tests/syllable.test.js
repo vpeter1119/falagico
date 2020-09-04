@@ -1,5 +1,6 @@
 const Syllable = require('../classes/syllable');
 const defaultOptions = require('../classes/default');
+const random = require('../util/random');
 
 describe('Syllable() with empty constructor', () => {
     var syl = new Syllable();
@@ -65,6 +66,37 @@ describe('generator methods return valid elements', () => {
         });
     });
 
+    describe('GenerateOnset(type) with valid type', () => {
+        var validOnsetTypes = options.phonology.phonotactics.onsets;
+        var type = random.pick(validOnsetTypes);
+        var onset = syl.GenerateOnset(type);
+
+        it('returns a valid element', () => {
+            expect(typeof onset).toBe('object');
+            expect(onset).toHaveProperty('type');
+        });
+        test('which adheres to the specified ruleset', () => {
+            expect(validOnsetTypes.includes(onset.type)).toBe(true);
+        });
+        it('and has the specified type', () => {
+            expect(onset.type).toBe(type);
+        });
+    });
+
+    describe('GenerateOnset(type) with invalid type', () => {
+        var validOnsetTypes = options.phonology.phonotactics.onsets;
+        var type = ['thisIsNot','aValidType'];
+        var onset = syl.GenerateOnset(type);
+
+        it('returns a valid element', () => {
+            expect(typeof onset).toBe('object');
+            expect(onset).toHaveProperty('type');
+        });
+        test('which adheres to the specified ruleset', () => {
+            expect(validOnsetTypes.includes(onset.type)).toBe(true);
+        });
+    });
+
     describe('GenerateNucleus()', () => {
         var nucleus = syl.GenerateNucleus();
         var validNucleusTypes = options.phonology.phonotactics.nuclei;
@@ -78,9 +110,71 @@ describe('generator methods return valid elements', () => {
         });
     });
 
+    describe('GenerateNucleus(type) with valid type', () => {
+        var validNucleusTypes = options.phonology.phonotactics.nuclei;
+        var type = random.pick(validNucleusTypes);
+        var nucleus = syl.GenerateNucleus(type);
+
+        it('returns a valid element', () => {
+            expect(typeof nucleus).toBe('object');
+            expect(nucleus).toHaveProperty('type');
+        });
+        test('which adheres to the specified ruleset', () => {
+            expect(validNucleusTypes.includes(nucleus.type)).toBe(true);
+        });
+        it('and has the specified type', () => {
+            expect(nucleus.type).toBe(type);
+        });
+    });
+
+    describe('GenerateNucleus(type) with invalid type', () => {
+        var validNucleusTypes = options.phonology.phonotactics.nuclei;
+        var type = ['thisIsNot', 'aValidType'];
+        var nucleus = syl.GenerateNucleus(type);
+
+        it('returns a valid element', () => {
+            expect(typeof nucleus).toBe('object');
+            expect(nucleus).toHaveProperty('type');
+        });
+        test('which adheres to the specified ruleset', () => {
+            expect(validNucleusTypes.includes(nucleus.type)).toBe(true);
+        });
+    });
+
     describe('GenerateCoda()', () => {
         var coda = syl.GenerateCoda();
         var validCodaTypes = options.phonology.phonotactics.codas;
+
+        it('returns a valid element', () => {
+            expect(typeof coda).toBe('object');
+            expect(coda).toHaveProperty('type');
+        });
+        test('which adheres to the specified ruleset', () => {
+            expect(validCodaTypes.includes(coda.type)).toBe(true);
+        });
+    });
+
+    describe('GenerateCoda(type) with valid type', () => {
+        var validCodaTypes = options.phonology.phonotactics.codas;
+        var type = random.pick(validCodaTypes);
+        var coda = syl.GenerateCoda(type);
+
+        it('returns a valid element', () => {
+            expect(typeof coda).toBe('object');
+            expect(coda).toHaveProperty('type');
+        });
+        test('which adheres to the specified ruleset', () => {
+            expect(validCodaTypes.includes(coda.type)).toBe(true);
+        });
+        it('and has the specified type', () => {
+            expect(coda.type).toBe(type);
+        });
+    });
+
+    describe('GenerateCoda(type) with invalid type', () => {
+        var validCodaTypes = options.phonology.phonotactics.codas;
+        var type = ['thisIsNot', 'aValidType'];
+        var coda = syl.GenerateCoda(type);
 
         it('returns a valid element', () => {
             expect(typeof coda).toBe('object');

@@ -46,10 +46,16 @@ class Syllable {
     /**
      * Generate a valid syllable onset.
      * @memberof Syllable
+    * @param {string[]} [type] A valid onset type, for example ['consontants','affricates']. Optional.
      * @return {Syllable.element} A valid onset.
      * */
-    GenerateOnset() {
-        var onsetType = random.pick(this.options.phonology.phonotactics.onsets);
+    GenerateOnset(type) {
+        var onsetType;
+        if (type && this.options.phonology.phonotactics.onsets.includes(type)) {
+            onsetType = type;
+        } else {
+            onsetType = random.pick(this.options.phonology.phonotactics.onsets);
+        }
         var onsetText = onsetType.length ? random.pick(this.options.phonology.inventory[onsetType[0]][onsetType[1]]) : '';
         return {
             type: onsetType || '',
@@ -60,10 +66,16 @@ class Syllable {
     /**
     * Generate a valid syllable nucleus.
     * @memberof Syllable
+    * @param {string[]} [type] A valid nucleus type, for example ['vowels','low']. Optional.
     * @return {Syllable.element} A valid nucleus.
     * */
-    GenerateNucleus() {
-        var nucleusType = random.pick(this.options.phonology.phonotactics.nuclei);
+    GenerateNucleus(type) {
+        var nucleusType;
+        if (type && this.options.phonology.phonotactics.nuclei.includes(type)) {
+            nucleusType = type;
+        } else {
+            nucleusType = random.pick(this.options.phonology.phonotactics.nuclei);
+        }
         var nucleusText = nucleusType.length ? random.pick(this.options.phonology.inventory[nucleusType[0]][nucleusType[1]]) : '';
         return {
             type: nucleusType || '',
@@ -74,16 +86,24 @@ class Syllable {
     /**
     * Generate a valid syllable coda.
     * @memberof Syllable
+    * @param {string[]} [type] A valid coda type, for example ['consontants','approximants']. Optional.
     * @return {Syllable.element} A valid coda.
     * */
-    GenerateCoda() {
-        var codaType = random.pick(this.options.phonology.phonotactics.codas);
+    GenerateCoda(type) {
+        var codaType;
+        if (type && this.options.phonology.phonotactics.codas.includes(type)) {
+            codaType = type;
+        } else {
+            codaType = random.pick(this.options.phonology.phonotactics.codas);
+        }
         var codaText = codaType.length ? random.pick(this.options.phonology.inventory[codaType[0]][codaType[1]]) : '';
         return {
             type: codaType || '',
             text: codaText
         };
     }
+
+    
 }
 
 module.exports = Syllable;
