@@ -27,7 +27,21 @@ function PickRandom(array) {
     return array[index];
 }
 
+/**
+ * Pick a random element from an array. Prefers elements with lower index.
+ * @name pickAdj
+ * @param {any[]} array The array to pick from.
+ * @param {number} power The preference factor. Default value is 1, which represents equal chances. Higher power means stronger preference for lower indexes. Fraction power means preference for higher indexes. Defaults to 1 if set to negative value.
+ * @returns {any} The random element.
+ */
+function PickRandomAdjusted(array, power = 1) {
+    var powerToUse = (typeof power != 'number' || power <= 0) ? 1 : power;
+    const index = Math.floor(Math.pow(Math.random(), powerToUse) * array.length);
+    return array[index];
+}
+
 module.exports = {
     int: GetRandomInt,
-    pick: PickRandom
+    pick: PickRandom,
+    pickAdj: PickRandomAdjusted
 };
