@@ -145,6 +145,14 @@ class Syllable {
             }
         });
     }
+
+    /**
+     * Returns syllable text as string.
+     * @memberof Syllable
+     * */
+    toString() {
+        return `${this.onset.text}${this.nucleus.text}${this.coda.text}`;
+    }
 }
 
 module.exports = Syllable;

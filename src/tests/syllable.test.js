@@ -207,3 +207,31 @@ describe('ChangeElementType(element) with an invalid elementType', () => {
     });
 
 });
+
+describe('Syllable.toString()', () => {
+    var elements = {
+        onset: {
+            type: ['consonants', 'affricates'],
+            text: 'b'
+        },
+        nucleus: {
+            type: ['vowels', 'low'],
+            text: 'a'
+        },
+        coda: {
+            type: ['consonants', 'approximants'],
+            text: 'r'
+        }
+    };
+    var syl = new Syllable(defaultOptions, elements);
+    var str = syl.toString();
+
+    it('returns a string', () => {
+        expect(typeof str).toBe('string');
+    });
+
+    it('matches the requested elements', () => {
+        expect(str).toBe(`${elements.onset.text}${elements.nucleus.text}${elements.coda.text}`);
+    });
+
+});
