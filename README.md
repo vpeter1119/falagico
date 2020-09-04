@@ -1,5 +1,6 @@
 # Falagico
 
+![npm version](https://img.shields.io/npm/v/falagico)
 ![falagico build status](https://travis-ci.com/vpeter1119/falagico.svg?branch=master)
 
 FaLaGiCo stands for Fantasy Language Gibberish Converter. You can enter any text and Falagico converts it to a gibberish that looks like the selected fantasy language. This hobby project is entirely non-commercial.
