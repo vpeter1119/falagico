@@ -186,6 +186,15 @@ describe('generator methods return valid elements', () => {
     });
 });
 
+describe('ChangeElementType() without parameters', () => {
+    var syl = new Syllable(defaultOptions);
+
+    it('throws a SyntaxError', () => {
+        expect(() => { syl.ChangeElementType(); }).toThrow(SyntaxError);
+    });
+
+});
+
 describe('ChangeElementType(element) with a valid elementType', () => {
     var syl = new Syllable(defaultOptions);
     var element = 'nucleus';
