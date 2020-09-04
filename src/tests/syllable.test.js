@@ -221,10 +221,13 @@ describe('Syllable.ChangeElementType(element) with an invalid elementType', () =
 
 describe('Syllable.Regen()', () => {
     var syl = new Syllable();
-    var elementType = 'thisIsNotAValidType';
+    var obj = {};
+    syl.Regen().then(res => { obj = res; });
 
-    it('throws a TypeError', () => {
-        expect(() => { syl.ChangeElementType(elementType); }).toThrow(TypeError);
+    it('returns syllable elements', () => {
+        expect(obj).toHaveProperty('onset');
+        expect(obj).toHaveProperty('nucleus');
+        expect(obj).toHaveProperty('coda');
     });
 
 });
