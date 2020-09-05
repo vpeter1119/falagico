@@ -21,26 +21,31 @@ const options = {
                 liquids: ['bl', 'br', 'pr', 'tr', 'dl', 'dr', 'kl', 'kr', 'gl', 'gr'],
                 nasals: ['m', 'n'],
                 fricatives: ['f', 'v', 'th', 's', 'z', 'sh', 'h'],
-                affricates: ['b', 'p', 't', 'd', 'k', 'g']
+                affricates: ['b', 'p', 't', 'd', 'k', 'g'],
+                approximants: ['r','j','w']
             }
         },
         phonotactics: {
-            onsets: [[], ['consonants', 'fricatives'], ['consonants', 'affricates'], ['consonants', 'liquids']],
+            onsets: [[], ['consonants', 'fricatives'], ['consonants', 'affricates'], ['consonants', 'liquids'], ['consonants', 'approximants']],
             nuclei: [['vowels', 'low'], ['vowels', 'high']],
-            codas: [[], ['consonants', 'nasals']]
+            codas: [[], ['consonants', 'nasals'], ['consonants', 'fricatives'], ['consonants', 'affricates'], ['consonants','approximants']]
         },
         constraints: {
             noLiquidAfterCoda: true,
             noDoubleNucleus: true,
+            preventDouble: ['j','w','th','sh']
         },
         other: {
-            maxWordLength: 5,
+            maxWordLength: 3
         },
         inventorySimple: {
             C: ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'z'],
             V: ['a', 'e', 'i', 'o', 'u']
         },
         phonotacticsSimple: ['CVC']
+    },
+    config: {
+        adjustTypes: 2
     },
     names: {
         firstNames: {
