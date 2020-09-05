@@ -33,21 +33,14 @@
 			<li class="dropdown">
 				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-falagico.html">falagico</a></li><li><a href="module-languages.html">languages</a></li><li><a href="module-random.html">random</a></li>
+					<li><a href="module-falagico.html">falagico</a></li><li><a href="module-random.html">random</a></li>
 				</ul>
 			</li>
 			
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="Language.html">Language</a></li>
-				</ul>
-			</li>
-			
-			<li class="dropdown">
-				<a href="mixins.list.html" class="dropdown-toggle" data-toggle="dropdown">Mixins<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="langOptions.html">langOptions</a></li>
+					<li><a href="Language.html">Language</a></li><li><a href="Syllable.html">Syllable</a></li>
 				</ul>
 			</li>
 			
@@ -165,7 +158,7 @@
             
 <hr>
 <dt class="name" id="defaultLangOptions">
-    <h4 id="defaultLangOptions"><span class="type-signature"></span>defaultLangOptions<span class="type-signature"> :<a href="langOptions.html">langOptions</a></span></h4>
+    <h4 id="defaultLangOptions"><span class="type-signature"></span>defaultLangOptions<span class="type-signature"> :<a href="global.html#langOptions">langOptions</a></span></h4>
 
     
 </dt>
@@ -181,7 +174,7 @@
         <ul>
             <li>
                 
-<span class="param-type"><a href="langOptions.html">langOptions</a></span>
+<span class="param-type"><a href="global.html#langOptions">langOptions</a></span>
 
 
 
@@ -243,15 +236,15 @@
         <dl>
                 
 <hr>
-<dt class="name" id="syllable">
-    <h4 id="syllable">syllable</h4>
+<dt class="name" id="langOptions">
+    <h4 id="langOptions">langOptions</h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        <p>Basic syllable object.</p>
+        <p>Language configuration options.</p>
     </div>
     
 
@@ -298,13 +291,13 @@
 
         <tr>
             
-                <td class="name"><code>onset</code></td>
+                <td class="name"><code>name</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#syllable#.element">syllable.element</a></span>
+<span class="param-type">string</span>
 
 
 
@@ -315,20 +308,20 @@
 
             
 
-            <td class="description last"><p>Syllable onset (first part).</p></td>
+            <td class="description last"><p>Full name of the language.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>nucleus</code></td>
+                <td class="name"><code>id</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#syllable#.element">syllable.element</a></span>
+<span class="param-type">string</span>
 
 
 
@@ -339,20 +332,20 @@
 
             
 
-            <td class="description last"><p>Syllable nucleus (middle part, obligatory).</p></td>
+            <td class="description last"><p>Short language ID.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>coda</code></td>
+                <td class="name"><code>desc</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#syllable#.element">syllable.element</a></span>
+<span class="param-type">string</span>
 
 
 
@@ -363,7 +356,31 @@
 
             
 
-            <td class="description last"><p>Syllable coda (last part).</p></td>
+            <td class="description last"><p>Language description</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>phonology</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#langOptions#.phonology">langOptions.phonology</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Phonological ruleset used for generating syllables.</p></td>
         </tr>
 
     
@@ -396,6 +413,13 @@
 	
 
 	
+	<dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
+	<dd class="tag-default">
+		<ul class="dummy">
+			<li><a href="global.html#defaultLangOptions"><code>defaultLangOptions</code></a></li>
+		</ul>
+	</dd>
+	
 
 
 
@@ -407,16 +431,6 @@
 
 	
 </dl>
-
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">{
-    onset: {type:[&quot;consonants&quot;,&quot;affricates&quot;],text:&quot;b&quot;},
-    nucleus: {type:[&quot;vowels&quot;,&quot;low&quot;],text:&quot;a&quot;},
-    coda: {type:[&quot;consonants&quot;,&quot;trills&quot;],text:&quot;r&quot;}
-}</pre>
 
 
     

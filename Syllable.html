@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Falagico Class: Language</title>
+	<title>Falagico Class: Syllable</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -79,16 +79,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: Language</h1>
+	<h1 class="page-title">Class: Syllable</h1>
 <section>
 
 <header>
     
         <h2>
-        Language
+        Syllable
         </h2>
         
-            <div class="class-description"><p>A naming language which generates random syllables, words, sentences and text based on pre-defined linguistic rules.</p></div>
+            <div class="class-description"><p>The lowest level generated element of a naming language.</p></div>
         
     
 </header>
@@ -100,7 +100,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="Language"><span class="type-signature"></span>new Language(langOptions)</h4>
+    <h4 class="name" id="Syllable"><span class="type-signature"></span>new Syllable(options [, elements])</h4>
     
     
 </dt>
@@ -127,6 +127,8 @@
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -139,7 +141,7 @@
 
         <tr>
             
-                <td class="name"><code>langOptions</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
@@ -153,10 +155,52 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
             <td class="description last"><p>Language configuration options.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>elements</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Syllable onset, nucleus and coda.</p></td>
         </tr>
 
     
@@ -218,12 +262,6 @@
     
 
     
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">const Gibberish = new Language(); // uses default values for langOptions</pre>
-
-
-    
 </dd>
 
     
@@ -245,18 +283,29 @@
         <dl>
             
 <hr>
-<dt class="name" id="desc">
-    <h4 id="desc"><span class="type-signature"></span>desc<span class="type-signature"></span></h4>
+<dt class="name" id="coda">
+    <h4 id="coda"><span class="type-signature"></span>coda<span class="type-signature"> :<a href="Syllable.html#.element">Syllable.element</a></span></h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        <p>Language description.</p>
+        <p>Last part of the syllable (optional).</p>
     </div>
     
 
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type"><a href="Syllable.html#.element">Syllable.element</a></span>
+
+
+
+            </li>
+        </ul>
     
 
     
@@ -305,18 +354,29 @@
         
             
 <hr>
-<dt class="name" id="id">
-    <h4 id="id"><span class="type-signature"></span>id<span class="type-signature"></span></h4>
+<dt class="name" id="nucleus">
+    <h4 id="nucleus"><span class="type-signature"></span>nucleus<span class="type-signature"> :<a href="Syllable.html#.element">Syllable.element</a></span></h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        <p>Short language ID.</p>
+        <p>Middle part of the syllable (obligatory). In most cases, nucleus is a vowel.</p>
     </div>
     
 
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type"><a href="Syllable.html#.element">Syllable.element</a></span>
+
+
+
+            </li>
+        </ul>
     
 
     
@@ -365,18 +425,29 @@
         
             
 <hr>
-<dt class="name" id="name">
-    <h4 id="name"><span class="type-signature"></span>name<span class="type-signature"></span></h4>
+<dt class="name" id="onset">
+    <h4 id="onset"><span class="type-signature"></span>onset<span class="type-signature"> :<a href="Syllable.html#.element">Syllable.element</a></span></h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        <p>Full name of the language.</p>
+        <p>First part of the syllable (optional).</p>
     </div>
     
 
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type"><a href="Syllable.html#.element">Syllable.element</a></span>
+
+
+
+            </li>
+        </ul>
     
 
     
@@ -432,7 +503,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="CheckDoubleNucleus"><span class="type-signature"></span>CheckDoubleNucleus(word)</h4>
+    <h4 class="name" id="ChangeElementType"><span class="type-signature"></span>ChangeElementType(element)</h4>
     
     
 </dt>
@@ -440,7 +511,7 @@
 
     
     <div class="description">
-        <p>Regenerates onset if empty coda is followed by empty onset</p>
+        <p>Changes the specified syllable element (onset, nucleus or coda) to another valid type.</p>
     </div>
     
 
@@ -475,391 +546,7 @@
 
         <tr>
             
-                <td class="name"><code>word</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">any</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="CheckGlide"><span class="type-signature"></span>CheckGlide(word)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Regenerates onset if non-empty coda is followed by glide onset.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>word</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;<a href="Syllable.html">Syllable</a>></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="CheckLiquid"><span class="type-signature"></span>CheckLiquid(word)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Regenerates onset if non-empty coda is followed by liquid onset.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>word</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;<a href="Syllable.html">Syllable</a>></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="Convert"><span class="type-signature"></span>Convert(string)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Convert string into a random text with the same number of sentences and words.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>string</code></td>
+                <td class="name"><code>element</code></td>
             
 
             <td class="type">
@@ -876,7 +563,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>Syllable element to change. Must be 'onset', 'nucleus' or 'coda'.</p></td>
         </tr>
 
     
@@ -940,7 +627,7 @@
     
             
 <div class="param-desc">
-    <p>Converted text.</p>
+    <p>The new element.</p>
 </div>
 
 
@@ -951,7 +638,7 @@
     </dt>
     <dd>
         
-<span class="param-type">string</span>
+<span class="param-type">Promise.&lt;<a href="Syllable.html#.element">Syllable.element</a>></span>
 
 
 
@@ -968,7 +655,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="Sentence"><span class="type-signature"></span>Sentence(length)</h4>
+    <h4 class="name" id="GenerateCoda"><span class="type-signature"></span>GenerateCoda( [type])</h4>
     
     
 </dt>
@@ -976,7 +663,7 @@
 
     
     <div class="description">
-        <p>Generate random sentence based on phonological inventory and rules.</p>
+        <p>Generate a valid syllable coda.</p>
     </div>
     
 
@@ -999,6 +686,8 @@
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -1011,13 +700,13 @@
 
         <tr>
             
-                <td class="name"><code>length</code></td>
+                <td class="name"><code>type</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">Array.&lt;string></span>
 
 
 
@@ -1025,10 +714,20 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>The sentence length in words. Default: random integer between 1 and 10.</p></td>
+            <td class="description last"><p>A valid coda type, for example ['consontants','approximants']. Optional.</p></td>
         </tr>
 
     
@@ -1092,7 +791,7 @@
     
             
 <div class="param-desc">
-    <p>Random sentence.</p>
+    <p>A valid coda.</p>
 </div>
 
 
@@ -1103,7 +802,7 @@
     </dt>
     <dd>
         
-<span class="param-type">string</span>
+<span class="param-type"><a href="Syllable.html#.element">Syllable.element</a></span>
 
 
 
@@ -1120,7 +819,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="Syllable"><span class="type-signature"></span>Syllable()</h4>
+    <h4 class="name" id="GenerateNucleus"><span class="type-signature"></span>GenerateNucleus( [type])</h4>
     
     
 </dt>
@@ -1128,117 +827,7 @@
 
     
     <div class="description">
-        <p>Generates a syllable based on the phonological inventory and rules.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>Random syllable.</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="Syllable.html">Syllable</a></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">const Gibberish = new Language(); // uses default values for langOptions
-var syl = Gibberish.Syllable();
-console.log(syl).toString(); // bar</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="Text"><span class="type-signature"></span>Text(length)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Generate random text based on phonological inventory and rules.</p>
+        <p>Generate a valid syllable nucleus.</p>
     </div>
     
 
@@ -1261,6 +850,8 @@ console.log(syl).toString(); // bar</pre>
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -1273,13 +864,13 @@ console.log(syl).toString(); // bar</pre>
 
         <tr>
             
-                <td class="name"><code>length</code></td>
+                <td class="name"><code>type</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">Array.&lt;string></span>
 
 
 
@@ -1287,10 +878,20 @@ console.log(syl).toString(); // bar</pre>
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>Length of Text in sentences. Default: random integer between 1 and 10.</p></td>
+            <td class="description last"><p>A valid nucleus type, for example ['vowels','low']. Optional.</p></td>
         </tr>
 
     
@@ -1354,7 +955,7 @@ console.log(syl).toString(); // bar</pre>
     
             
 <div class="param-desc">
-    <p>Random text.</p>
+    <p>A valid nucleus.</p>
 </div>
 
 
@@ -1365,7 +966,7 @@ console.log(syl).toString(); // bar</pre>
     </dt>
     <dd>
         
-<span class="param-type">string</span>
+<span class="param-type"><a href="Syllable.html#.element">Syllable.element</a></span>
 
 
 
@@ -1382,7 +983,7 @@ console.log(syl).toString(); // bar</pre>
             
 <hr>
 <dt>
-    <h4 class="name" id="Word"><span class="type-signature"></span>Word(length)</h4>
+    <h4 class="name" id="GenerateOnset"><span class="type-signature"></span>GenerateOnset( [type])</h4>
     
     
 </dt>
@@ -1390,7 +991,7 @@ console.log(syl).toString(); // bar</pre>
 
     
     <div class="description">
-        <p>Generates a random word based on the phonological inventory and rules.</p>
+        <p>Generate a valid syllable onset.</p>
     </div>
     
 
@@ -1413,6 +1014,8 @@ console.log(syl).toString(); // bar</pre>
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -1425,13 +1028,13 @@ console.log(syl).toString(); // bar</pre>
 
         <tr>
             
-                <td class="name"><code>length</code></td>
+                <td class="name"><code>type</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">Array.&lt;string></span>
 
 
 
@@ -1439,10 +1042,20 @@ console.log(syl).toString(); // bar</pre>
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>Word length in syllables. Default: random integer between 1 and <code>langOptions.phonology.other.maxWordLength</code>.</p></td>
+            <td class="description last"><p>A valid onset type, for example ['consontants','affricates']. Optional.</p></td>
         </tr>
 
     
@@ -1506,9 +1119,307 @@ console.log(syl).toString(); // bar</pre>
     
             
 <div class="param-desc">
-    <p>Random word.</p>
+    <p>A valid onset.</p>
 </div>
 
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Syllable.html#.element">Syllable.element</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="Regen"><span class="type-signature"></span>Regen()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Completely regenerates syllable elements.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Syllable elements object.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;<a href="Syllable.html">Syllable</a>></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="toArray"><span class="type-signature"></span>toArray()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Returns syllable as an array of strings.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;string></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="toString"><span class="type-signature"></span>toString()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Returns syllable text as string.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
 
 
 <dl>
@@ -1533,6 +1444,158 @@ console.log(syl).toString(); // bar</pre>
         </dl>
     
 
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        <dl>
+                
+<hr>
+<dt class="name" id=".element">
+    <h4 id=".element">element</h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Syllable element.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Element type and subtype, e.g. &quot;consonants.approximant&quot;.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>text</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Element value, e.g. &quot;b&quot;.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+            </dl>
     
 
     
