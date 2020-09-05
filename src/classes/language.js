@@ -136,7 +136,7 @@ class Language {
      * @param {number} length Word length in syllables. Default: random integer between 1 and {@link langOptions.phonology.other.maxWordLength}.
      * @returns {string} Random word.
      */
-    Word(length = random.int(this.phonology.other.maxWordLength-1)+1) {
+    Word(length = random.int(this.phonology.other.maxWordLength)+1) {
         if (!this.phonology.inventory) {
             return;
         }
@@ -218,80 +218,49 @@ class Language {
         return convertedSentences.join(' ');
     }
 
-    // Simple syllable generation
-    SyllableSimple(pattern = random.pick(this.phonology.phonotacticsSimple)) {
-        var syllable = [];
-        var sylElList = pattern.split('');
-        sylElList.forEach(syllableElement => {
-            var index = random.int(this.phonology.inventorySimple[syllableElement].length);
-            var character = this.phonology.inventorySimple[syllableElement][index];
-            syllable = syllable.concat(character);
-        });
-        return syllable.join('');
-    }
-    // Simple word generation
-    WordSimple(length = random.int(2) + 1) {
-        var word = '';
-        for (var i = 0; i < length; i++) {
-            word = word.concat(this.SyllableSimple());
-        }
-        return word;
-    }
-
-    // Generate first name
-    FirstName(type = random.pick(Object.keys(this.names.firstNames))) {
-        var pattern = random.pick(this.names.firstNames[type]);
-        var name = _.capitalize(this.SyllableSimple(pattern));
-        return name;
-    }
-
-    // Generate full name
-    FullName(type = random.pick(Object.keys(this.names.firstNames))) {
-        var firstName = this.FirstName(type);
-        var lastName = _.capitalize(this.WordSimple());
-        var fullName = `${firstName  } ${  lastName}`;
-        return `${fullName  } (${  type  })`;
-    }
-
     /**
      * Regenerates onset if non-empty coda is followed by liquid onset.
      * @param {Syllable[]} word
      */
     CheckLiquid(word) {
-        // Check if 
+        var processedWord = word;
         for (var i = 0; i < word.length; i++) {
-            if (i != word.length - 1 && word[i].coda.type != '' && word[i + 1].onset.type == 'liquids') {
+            if (i != word.length - 1 && word[i].coda.type != '' && word[i + 1].onset.type[1] == 'liquids') {
                 // Generate a syllable with non-liquid onset
-                word[i + 1].ChangeElementType('onset');
+                processedWord[i + 1].ChangeElementType('onset');
             }
         }
-        return word;
+        return processedWord;
     }
+
     /**
      * Regenerates onset if non-empty coda is followed by glide onset.
      * @param {Syllable[]} word
      */
     CheckGlide(word) {
+        var processedWord = word;
         for (var i = 0; i < word.length; i++) {
-            if (i != word.length - 1 && word[i].coda.type != '' && word[i + 1].onset.type == 'glides') {
+            if (i != word.length - 1 && word[i].coda.type != '' && word[i + 1].onset.type[1] == 'glides') {
                 // Generate a syllable with non-glide onset
-                word[i + 1].ChangeElementType('onset');
+                processedWord[i + 1].ChangeElementType('onset');
             }
         }
-        return word;
+        return processedWord;
     }
+
     /**
      * Regenerates onset if empty coda is followed by empty onset
      * @param {any} word
      */
     CheckDoubleNucleus(word) {
+        var processedWord = word;
         for (var i = 0; i < word.length; i++) {
-            if (i != word.length - 1 && word[i].coda.type == '' && word[i + 1].onset.type == '') {
+            if (i != word.length - 1 && word[i].coda.type[1] == undefined && word[i + 1].onset.type[1] == undefined) {
                 // Generate a syllable with non-empty onset
-                word[i + 1].ChangeElementType('onset');
+                processedWord[i + 1].ChangeElementType('onset');
             }
         }
-        return word;
+        return processedWord;
     }
 
 }

@@ -27,3 +27,25 @@ describe('random.pick(<array>)', () => {
         expect(array.includes(random.pick(array))).toBe(true);
     });
 });
+
+describe('random.pickAdj(<array>)', () => {
+    const array = ['Maedhros', 'Maglor', 'Celegorm', 'Caranthir', 'Curufin', 'Amrod', 'Amras'];
+
+    describe('with valid parameters', () => {
+        var res = random.pickAdj(array, 2);
+
+        it('returns a string', () => {
+            expect(typeof res).toBe('string');
+        });
+
+        it('picks a random element from <array>', () => {
+            expect(array.includes(res)).toBe(true);
+        });
+    });
+
+    it('works with invalid power parameters', () => {
+        expect(typeof random.pickAdj(array, 0)).toBe('string');
+        expect(typeof random.pickAdj(array, -2)).toBe('string');
+        expect(typeof random.pickAdj(array, 'thisIsNotEvenANumber')).toBe('string');
+    });
+});
