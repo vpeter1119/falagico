@@ -14,6 +14,8 @@
 const _ = require('lodash');
 const random = require('./util/random');
 const Language = require('./classes/language');
+const Word = require('./classes/word');
+const Syllable = require('./classes/syllable');
 
 // Import default languages
 const defaultLangs = require('./languages/defaults');
@@ -47,6 +49,8 @@ function GetInfo(lang) {
 module.exports = {
     messages,
     Language,
+    Word,
+    Syllable,
     languages: defaultLangs,
     info: GetInfo,
     util: {
