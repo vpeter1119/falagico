@@ -1,6 +1,4 @@
 // Modules
-const _ = require('lodash');
-const Language = require('./language');
 const defaultOptions = require('./default.js');
 const random = require('../util/random.js');
 
@@ -17,6 +15,7 @@ class Syllable {
         elements = {}
     ) {
         this.options = options;
+        this.pow = (this.options.config && this.options.config.adjustTypes) ? this.options.config.adjustTypes : 1;
 
         /**
          * Syllable element.
@@ -54,7 +53,7 @@ class Syllable {
         if (type && this.options.phonology.phonotactics.onsets.includes(type)) {
             onsetType = type;
         } else {
-            onsetType = random.pick(this.options.phonology.phonotactics.onsets);
+            onsetType = random.pickAdj(this.options.phonology.phonotactics.onsets, this.pow);
         }
         var onsetText = onsetType.length ? random.pick(this.options.phonology.inventory[onsetType[0]][onsetType[1]]) : '';
         return {
@@ -74,7 +73,7 @@ class Syllable {
         if (type && this.options.phonology.phonotactics.nuclei.includes(type)) {
             nucleusType = type;
         } else {
-            nucleusType = random.pick(this.options.phonology.phonotactics.nuclei);
+            nucleusType = random.pickAdj(this.options.phonology.phonotactics.nuclei, this.pow);
         }
         var nucleusText = nucleusType.length ? random.pick(this.options.phonology.inventory[nucleusType[0]][nucleusType[1]]) : '';
         return {
@@ -94,7 +93,7 @@ class Syllable {
         if (type && this.options.phonology.phonotactics.codas.includes(type)) {
             codaType = type;
         } else {
-            codaType = random.pick(this.options.phonology.phonotactics.codas);
+            codaType = random.pickAdj(this.options.phonology.phonotactics.codas, this.pow);
         }
         var codaText = codaType.length ? random.pick(this.options.phonology.inventory[codaType[0]][codaType[1]]) : '';
         return {
@@ -117,25 +116,25 @@ class Syllable {
         var oldElementType;
         var newElementType;
         var newElement;
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             switch (element) {
                 case 'onset':
                     oldElementType = this.onset.type;
-                    newElementType = random.pick(pt.onsets.filter(et => et != oldElementType));
+                    newElementType = random.pick(pt.onsets.filter(et => et[1] != oldElementType[1]));
                     newElement = this.GenerateOnset(newElementType);
                     this.onset = newElement;
                     resolve(newElement);
                     break;
                 case 'nucleus':
                     oldElementType = this.nucleus.type;
-                    newElementType = random.pick(pt.nuclei.filter(et => et != oldElementType));
+                    newElementType = random.pick(pt.nuclei.filter(et => et[1] != oldElementType[1]));
                     newElement = this.GenerateNucleus(newElementType);
                     this.nucleus = newElement;
                     resolve(newElement);
                     break;
                 case 'coda':
                     oldElementType = this.coda.type;
-                    newElementType = random.pick(pt.codas.filter(et => et != oldElementType));
+                    newElementType = random.pick(pt.codas.filter(et => et[1] != oldElementType[1]));
                     newElement = this.GenerateCoda(newElementType);
                     this.coda = newElement;
                     resolve(newElement);

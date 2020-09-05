@@ -36,13 +36,16 @@ const options = {
             preventDouble: ['j','w','th','sh']
         },
         other: {
-            maxWordLength: 5,
+            maxWordLength: 3
         },
         inventorySimple: {
             C: ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'z'],
             V: ['a', 'e', 'i', 'o', 'u']
         },
         phonotacticsSimple: ['CVC']
+    },
+    config: {
+        adjustTypes: 2
     },
     names: {
         firstNames: {
