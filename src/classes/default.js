@@ -22,37 +22,34 @@ const options = {
                 nasals: ['m', 'n'],
                 fricatives: ['f', 'v', 'th', 's', 'z', 'sh', 'h'],
                 affricates: ['b', 'p', 't', 'd', 'k', 'g'],
-                approximants: ['r','j','w']
+                approximants: ['r', 'j', 'w', 'l']
             }
         },
-        phonotactics: {
+        phonotactics: { // for all the things valid
             onsets: [[], ['consonants', 'fricatives'], ['consonants', 'affricates'], ['consonants', 'liquids'], ['consonants', 'approximants']],
             nuclei: [['vowels', 'low'], ['vowels', 'high']],
-            codas: [[], ['consonants', 'nasals'], ['consonants', 'fricatives'], ['consonants', 'affricates'], ['consonants','approximants']]
+            codas: [[], ['consonants', 'nasals'], ['consonants', 'fricatives'], ['consonants', 'affricates'], ['consonants', 'approximants']],
+            wordInits: [],
+            fallbackInit: 't',
+            wordFinals: ['r', 'l', 's', 'n'],
+            fallbackFinal: 'r'
         },
-        constraints: {
-            noLiquidAfterCoda: true,
-            noDoubleNucleus: true,
-            preventDouble: ['j','w','th','sh']
+        constraints: { // for all the thing invalid
+            invalidCodaOnsetPairs: [
+                [['consonants', 'ANY'], ['consonants', 'liquids']],
+                [['consonants', 'ANY'], ['consonants', 'glides']],
+                [['consonants', 'NULL'], ['consonants', 'NULL']]
+            ],
+            preventDouble: ['j', 'w', 'th', 'sh'],
+            preventInits: ['p', 'z'],
+            preventFinals: []
         },
         other: {
             maxWordLength: 3
         },
-        inventorySimple: {
-            C: ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'z'],
-            V: ['a', 'e', 'i', 'o', 'u']
-        },
-        phonotacticsSimple: ['CVC']
     },
     config: {
         adjustTypes: 2
-    },
-    names: {
-        firstNames: {
-            male: ['CVC'],
-            female: ['CVC'],
-            neutral: ['CVC']
-        }
     }
 };
 
