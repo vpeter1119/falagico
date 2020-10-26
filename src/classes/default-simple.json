@@ -1,0 +1,15 @@
+{
+	"name": "Simple Gibberish",
+	"id": "SGB",
+	"desc": "This is the default language for Falagico (with simplified generation).",
+	"phonology": {
+		"inventory": {
+			"C": [],
+			"V": [],
+			"S": [],
+			"L": [],
+			"F": []
+		},
+		"phonotactics": []
+	}
+}
