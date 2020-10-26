@@ -27,6 +27,7 @@
     "no-constant-condition": "off",
     "no-useless-escape": "off",
     "prefer-template": "warn",
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "no-redeclare": "off"
   }
 }

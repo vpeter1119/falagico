@@ -70,7 +70,7 @@ class Word {
                 while ((previous.coda.text == current.onset.text) && constraints.preventDouble.includes(current.onset.text)) {
                     current.onset = current.GenerateOnset(current.onset.type);
                     //console.warn(`Enforcing constraint: preventDouble(${previous.coda.text} => ${current.coda.text})`);
-                };
+                }
             }
         }
         // Resolve preset word initials
@@ -82,14 +82,14 @@ class Word {
             //console.warn(`Enforcing constraint: wordInit(${first.onset.text})`);
         } else if (constraints.preventInits && constraints.preventInits.length && constraints.preventInits.includes(first.onset.text)) {
             //console.warn(`Enforcing constraint: preventInit(${first.onset.text})`);
-            first.onset.text = random.pick(this.options.phonology.inventory[first.onset.type[0]][first.onset.type[1]].filter(txt => { return (txt != first.onset.text && constraints.preventInits.includes(txt)) })) || phonotactics.fallbackInit || '';
+            first.onset.text = random.pick(this.options.phonology.inventory[first.onset.type[0]][first.onset.type[1]].filter(txt => { return (txt != first.onset.text && constraints.preventInits.includes(txt)); })) || phonotactics.fallbackInit || '';
         }
         if (phonotactics.wordFinals && phonotactics.wordFinals.length && !phonotactics.wordFinals.includes(last.coda.text)) {
             last.coda.text = random.pick(phonotactics.wordFinals);
             //console.warn(`Enforcing constraint: wordFinal(${last.coda.text})`);
         } else if (constraints.preventFinals && constraints.preventFinals.length && constraints.preventFinals.includes(last.coda.text)) {
             //console.warn(`Enforcing constraint: preventFinal(${last.coda.text})`);
-            last.coda.text = random.pick(this.options.phonology.inventory[last.coda.type[0]][last.coda.type[1]].filter(txt => { return (txt != last.coda.text && constraints.preventFinals.includes(txt)) })) || phonotactics.fallbackFinal || '';
+            last.coda.text = random.pick(this.options.phonology.inventory[last.coda.type[0]][last.coda.type[1]].filter(txt => { return (txt != last.coda.text && constraints.preventFinals.includes(txt)); })) || phonotactics.fallbackFinal || '';
         }
     }
 
