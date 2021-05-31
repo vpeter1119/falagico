@@ -5,6 +5,8 @@
 
 FaLaGiCo stands for Fantasy Language Gibberish Converter. You can enter any text and Falagico converts it to a gibberish that looks like the selected fantasy language. This hobby project is entirely non-commercial.
 
+You can find the full API documentation here: https://vpeter1119.github.io/falagico
+
 ## Get Started
 
 To add Falagico to your package, use the following command:
